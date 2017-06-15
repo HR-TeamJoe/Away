@@ -5,8 +5,10 @@ var morgan = require('morgan');
 var router = require('./server/router/router.js');
 var path = require('path');
 var app = express();
+
 var db = require('./db/models/cityModel.js');
 
+app.use(morgan('dev'));
 
 //Route to static files
 app.use(express.static(path.resolve(__dirname, './public')));
