@@ -12,7 +12,7 @@ class App extends React.Component {
       <div>
         <h3>I would like to go somewhere...</h3>
         <span>
-          <span><TempDropdown option={['option 1', 'option 2', 'option 3']}/></span>
+          <span><TempDropdown options={['hot', 'warm', 'crisp', 'cold', 'freezing']}/></span>
           <span>around</span>
           <span><Calendar /></span>
           <form>

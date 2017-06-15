@@ -6,6 +6,7 @@ class TempDropdown extends React.Component {
 		this.state = {
 			value: ''
 		}
+		this.handleChange = this.handleChange.bind(this)
 	}
 
 	handleChange(e) {
@@ -20,7 +21,7 @@ class TempDropdown extends React.Component {
 				<select onChange={this.handleChange} value={this.state.value}>
 					{this.props.options.map((option, i) => {
 						return (
-							<option key={i} value={value}>{value}</option>
+							<option key={i} value={option}>{option}</option>
 						)
 					})}
 				</select>
