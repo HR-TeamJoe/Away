@@ -1,5 +1,6 @@
 import React from 'react';
 import Calendar from './calendar.jsx';
+import TempDropdown from './tempDropdown.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends React.Component {
       <div>
         <h3>I would like to go somewhere...</h3>
         <span>
-          <span>*Dropdown*</span>
+          <span><TempDropdown options={['hot', 'warm', 'crisp', 'cold', 'freezing']}/></span>
           <span>around</span>
           <span><Calendar /></span>
           <form>
