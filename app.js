@@ -7,6 +7,7 @@ var path = require('path');
 
 
 var app = express();
+app.use(morgan('dev'));
 
 //Route to static files
 app.use(express.static(path.resolve(__dirname, './public')));
