@@ -1,34 +1,43 @@
 import React from 'react';
 import { render } from 'react-dom';
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css'; //hardcoded in styles/calendar.css
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
 
-    var today = new Date();
-    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-
     this.state = {
-      today: today,
-      lastWeek: lastWeek
-    }
+      startDate: moment()
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   render() {
-    return (
-      <InfiniteCalendar
-        width={300}
-        height={250}
-        selected={this.state.today}
-        disabledDays={[0,6]}
-        minDate={this.state.lastWeek}
-      />
-    )
-
+    return <DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange}
+    />;
   }
 }
 
 
 module.exports = Calendar;
+
+
+// <InfiniteCalendar
+//   width={300}
+//   height={250}
+//   selected={this.state.today}
+//   disabledDays={[0,6]}
+//   minDate={this.state.lastWeek}
+// />
