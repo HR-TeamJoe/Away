@@ -12,6 +12,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.2",
+    "css-loader": "^0.28.4",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "mongoose": "^4.10.6",
@@ -24,6 +25,9 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
+    "startmon": "nodemon app.js",
+    "webpack": "webpack -d --watch",
     "test": "test"
   },
   "repository": {
