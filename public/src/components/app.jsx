@@ -1,6 +1,11 @@
 import React from 'react';
+import Calendar from './calendar.jsx';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -8,7 +13,7 @@ class App extends React.Component {
         <span>
           <span>*Dropdown*</span>
           <span>around</span>
-          <span>*Calendar*</span>
+          <span><Calendar /></span>
           <form>
             <button >Go!</button>
           </form>
