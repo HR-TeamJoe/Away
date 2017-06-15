@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const SRC_DIR = path.resolve(__dirname, 'public/src');
+const SRC_DIR = path.resolve(__dirname, 'public');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
-
+//move entry point to include css
 module.exports = {
-  entry: path.resolve(SRC_DIR, 'index.jsx'),
+  entry: path.resolve(SRC_DIR, 'src/index.jsx'),
   output: {
     filename: 'bundle.js',
     path: BUILD_DIR
@@ -21,9 +21,18 @@ module.exports = {
         }
       },
       {
-        test:/\.css$/,
-        loader: 'css-loader'
+        test: /\.css$/,
+        loader: 'style-loader'
+      }, 
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]'
+        }
       }
+
     ]
   }
 }
