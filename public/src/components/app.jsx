@@ -3,7 +3,7 @@ import Calendar from './calendar.jsx';
 import TempDropdown from './tempDropdown.jsx';
 import moment from 'moment';
 import axios from 'axios';
-
+import DestinationsList from './resultBoxes.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,5 +63,6 @@ class App extends React.Component {
     )
   }
 }
+
 
 module.exports = App;
