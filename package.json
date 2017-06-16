@@ -34,7 +34,8 @@
     "start": "node app.js",
     "startmon": "nodemon app.js",
     "webpack": "webpack -d --watch",
-    "test": "test"
+    "test": "test",
+    "heroku-postbuild": "webpack -p"
   },
   "repository": {
     "type": "git",
