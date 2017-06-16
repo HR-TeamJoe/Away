@@ -1,6 +1,6 @@
 var db =  require('../config.js');
 
-module.exports.addCity = function(city_id, city, lat, long, visits){
+module.exports.addCity = function(city_id, city, lat, long, visits) {
   db.post(`cities/${city_id}`, {
     data: {
       city_id: city_id,
@@ -17,12 +17,13 @@ module.exports.addCity = function(city_id, city, lat, long, visits){
   )
 }
 
-module.exports.getCity = function(){
+module.exports.getCity = function() {
   db.fetch('/cities', {
     context: this,
     asArray: true
   }).then(data => {
     console.log(data);
+    return data;
   }).catch(error => {
     console.log(error);
   })
