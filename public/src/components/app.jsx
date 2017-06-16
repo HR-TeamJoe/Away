@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from './calendar.jsx';
 import TempDropdown from './tempDropdown.jsx';
 import moment from 'moment';
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -31,9 +32,15 @@ class App extends React.Component {
 
   getCityResults(e){
     e.preventDefault();
-    console.log(this.state.startDate, this.state.temp);
-
-    //invoke a method yet to be made that posts to /api/search. that will begin getCityResults process
+    axios.post('/api/search', {
+      startDate: this.state.startDate,
+      temp: this.state.temp
+    })
+      .then((res) => {
+        return res
+      }).catch((err) => {
+        throw err;
+      })
   }
 
   render() {
