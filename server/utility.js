@@ -26,26 +26,22 @@ module.exports.compareCityTemps = (apiResponses, req, res, cities) => {
   });
 
   console.log('Sending back results: ', results);
-  
+
   //Implement sort by visits;
   res.status(200).send(results);
 
 };
 
+//DarkSkyAPI takes lat,long,unixTimeStamp.
+//This method converts the target date from user
+//to the unix timestamp from a year before that date.
 module.exports.getYearAgoUnixTime = (date) => {
   console.log('Entering getYearAgoUnixTime, where data is: ', date);
-  var arr = date.split('-');
-  arr[0] = '' + (+arr[0] - 1 );
-  date = arr.join('-');
+  var subArray = date.substring(0,10).split('-');
+  subArray[0] = '' + ( +subArray[0] - 1 ); //Convert year to number, subtract 1, then convert to string
+  date = subArray.join('.');
   var targetDate = new Date(date);
+  console.log('Year ago date is: ', targetDate);
   var targetUnixTime = targetDate.getTime()/1000|0;
-
-
-
-  // Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
-  // if(!Date.now) Date.now = function() { return new Date(); }
-  // Date.time = function() { return Date.now().getUnixTime(); }
-  // var parsedUnixTime = new Date(date).getUnixTime();
-  console.log('About to return targetUnixTime: ', targetUnixTime);
   return targetUnixTime;
 }
