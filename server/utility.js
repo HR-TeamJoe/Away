@@ -6,12 +6,14 @@ const tempDefinitions = {
   freezing: 30
 }
 
+//For each apiResponse, see if the historical temperature is within
+//the -7 and +8 of the user's target temperature. Return only five results,
+//sorted by most visits.
 module.exports.compareCityTemps = (apiResponses, req, res, cities) => {
   var { temp } = req.body;
   var targetTemp = tempDefinitions[temp];
 
   var results = [];
-
   apiResponses.forEach((darkSkyResponse) => {
     console.log('The current darkSkyResponse is: ', darkSkyResponse);
     var currentCity = cities.find((city) => city.lat === darkSkyResponse.latitude)
@@ -26,9 +28,12 @@ module.exports.compareCityTemps = (apiResponses, req, res, cities) => {
   });
 
   console.log('Sending back results: ', results);
+  results = results.sort(function(a, b) { 
+    return a.visits - b.visits;
+  });
 
-  //Implement sort by visits;
-  res.status(200).send(results);
+  var topFiveResults = results.slice(0,5);
+  res.status(200).send(topFiveResults);
 
 };
 

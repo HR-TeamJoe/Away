@@ -13,11 +13,11 @@ if ( process.env.darkSkyApi ) {
   darkSkyBaseUrl += `${darkSkyKey}/`;
 }
 
-//Receives temperaturee and date from landing page
+//Receives desired temperature and date from landing page
 //Pull all cities from db
-  //Then map city lat/long into an array of promisified function calls
+  //Then map city lat/long into an array of promisified get requests
     //Then call promise.all(<array of promises>)
-      //Call util.compareTemps
+      //Call util.compareTemps with results of all get requests
 router.post('/search', (req, res) => {
   console.log('Entering POST to /api/search where req.body is: ', req.body);
   var { startDate } = req.body;
@@ -40,10 +40,6 @@ router.post('/search', (req, res) => {
           var getUrl = `${darkSkyBaseUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
           console.log('Creating get request with url: ', getUrl);
         return new Promise((resolve, reject) => {
-          // var {lat, long, city} = city;
-          // console.log(`lat: ${lat} long: ${long} city: ${city}`);
-          // var getUrl = `${darkSkyBaseUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
-          // console.log('Creating get request with url: ', getUrl);
           axios.get(getUrl)
             .then((results) => resolve(results.data))
             .catch((error) => reject(error));
@@ -60,9 +56,6 @@ router.post('/search', (req, res) => {
       
 
     });
-
-  // res.sendStatus(200);
-//https://api.darksky.net/forecast/{{darkSkyApi}}/22.3574372,113.8408204,1465948800?exclude=currently,flags
 });
 
 
