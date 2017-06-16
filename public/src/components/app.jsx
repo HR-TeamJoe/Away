@@ -45,18 +45,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="search">
         <h3>I would like to go somewhere...</h3>
         <div>
           <span>
-            <TempDropdown options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.changeTemp} temp={this.state.temp}/>
+            <TempDropdown className="temperature" options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.changeTemp} temp={this.state.temp}/>
           </span>
-          <span>around</span>
+          <h3>around</h3>
           <span>
             <Calendar startDate={this.state.startDate} changeDate={this.changeDate}/>
           </span>
           <form>
-            <button onClick={(e) => this.getCityResults(e)}>Go!</button>
+            <button className="searchbutton" onClick={(e) => this.getCityResults(e)}>Go!</button>
           </form>
         </div>
       </div>
