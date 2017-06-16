@@ -1,6 +1,7 @@
 import React from 'react';
 import Calendar from './calendar.jsx';
 import TempDropdown from './tempDropdown.jsx';
+import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
@@ -58,6 +59,10 @@ class App extends React.Component {
           <form>
             <button className="searchbutton" onClick={(e) => this.getCityResults(e)}>Go!</button>
           </form>
+        </div>
+        
+        <div>
+          <MapView />
         </div>
       </div>
     )
