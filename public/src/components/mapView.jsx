@@ -6,16 +6,33 @@ const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/
 const position = [40.750487, -73.976401]
 const zoom = 12;
 
+// /////////////////////////////////
+// { city: 'New York, New York',
+//     city_id: 1,
+//     lat: 40.7128,
+//     long: -74.0059,
+//     visits: 1,
+//     key: '1' }
+// /////////////////////////////////
+
 const markers = [
   {
-    name: 'New York',
+    city: 'city 1',
     latlng: [40.750487, -73.976401]
   }, {
-    name: 'Görlitzer Park',
-    latlng: [52.496912, 13.436738]
+    city: 'city 2',
+    latlng: [50, -10]
   }, {
-    name: 'webkid',
-    latlng: [52.501106, 13.422061]
+    city: 'city 3',
+    latlng: [60, -20]
+  },
+  {
+    city: 'city 4',
+    latlng: [70, -30]
+  },
+  {
+    city: 'city 5',
+    latlng: [80, -40]
   }
 ];
 
@@ -26,9 +43,9 @@ class MapView extends React.Component {
   
 	render() {
 		const Markers = markers.map(marker => (
-      <Marker position={marker.latlng} key={`marker_${marker.name}`}>
+      <Marker position={marker.latlng} key={`marker_${marker.city}`}>
         <Popup>
-          <span>{marker.name}</span>
+          <span>{marker.city}</span>
         </Popup>
       </Marker>
     ));
