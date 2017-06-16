@@ -1,1 +1,6 @@
 node_modules
+/db/config.keys.js
+npm-debug.log
+/public/dist
+darkSkyConfig.js
+openWeatherConfig.js
