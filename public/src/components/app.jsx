@@ -1,6 +1,7 @@
 import React from 'react';
 import Calendar from './calendar.jsx';
 import TempDropdown from './tempDropdown.jsx';
+import DestinationsList from './resultBoxes.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,9 +20,11 @@ class App extends React.Component {
             <button >Go!</button>
           </form>
         </span>
+        <DestinationsList />
       </div>
     )
   }
 }
+
 
 module.exports = App;
