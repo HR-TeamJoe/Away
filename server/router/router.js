@@ -27,33 +27,41 @@ router.post('/search', (req, res) => {
   var yearAgoUnixTime = util.getYearAgoUnixTime(startDate);
   console.log('yearAgoUnixTime is: ', yearAgoUnixTime);
 
-  var cities;
+  var citiesFromDb;
   //Fetch all cities from database
-  // cityModel.getCity()
-  //   .then((cities) => {
-  //     cities = cities;
-  //     //map array of city lat/long values into an array of get requests wrapped in promises
-  //     var getPromises = cities.map((city) => {
-  //       return new Promise((resolve, reject) => {
-  //         var {lat, long, city} = city;
-  //         var getUrl = `${darkSkyBaseUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
-  //         axios.get(getUrl)
-  //           .then((results) => resolve(results.data))
-  //           .catch((error) => reject(error));
-  //       });
-  //     });
+  cityModel.getCity()
+    .then((cities) => {
+      console.log('Cities from db are: ', cities);
+      citiesFromDb = cities;
+      //map array of city lat/long values into an array of get requests wrapped in promises
+      var getPromises = cities.map((city) => {
+        var {lat, long, city} = city;
+          console.log(`lat: ${lat} long: ${long} city: ${city}`);
+          var getUrl = `${darkSkyBaseUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
+          console.log('Creating get request with url: ', getUrl);
+        return new Promise((resolve, reject) => {
+          // var {lat, long, city} = city;
+          // console.log(`lat: ${lat} long: ${long} city: ${city}`);
+          // var getUrl = `${darkSkyBaseUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
+          // console.log('Creating get request with url: ', getUrl);
+          axios.get(getUrl)
+            .then((results) => resolve(results.data))
+            .catch((error) => reject(error));
+        });
+      });
 
-  //     //Call all promise'd get requests
-  //       //then call compareTemps() and pass in the response
-  //     Promise.all(getPromises)
-  //       .then((apiResponses) => {
-  //         util.compareTemps((apiResponses, req, res, cities));
-  //       });
+      console.log('getPromises is: ', getPromises);
+      //Call all promise'd get requests
+        //then call compareTemps() and pass in the response
+      Promise.all(getPromises)
+        .then((apiResponses) => {
+          util.compareCityTemps(apiResponses, req, res, citiesFromDb);
+        });
       
 
-  //   });
+    });
 
-  res.sendStatus(200);
+  // res.sendStatus(200);
 //https://api.darksky.net/forecast/{{darkSkyApi}}/22.3574372,113.8408204,1465948800?exclude=currently,flags
 });
 

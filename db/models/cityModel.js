@@ -18,11 +18,11 @@ module.exports.addCity = function(city_id, city, lat, long, visits) {
 }
 
 module.exports.getCity = function() {
-  db.fetch('/cities', {
+  return db.fetch('/cities', {
     context: this,
     asArray: true
   }).then(data => {
-    console.log(data);
+    console.log('Inside the getCity then block, data is: ', data);
     return data;
   }).catch(error => {
     console.log(error);

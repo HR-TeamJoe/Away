@@ -13,9 +13,10 @@ module.exports.compareCityTemps = (apiResponses, req, res, cities) => {
   var results = [];
 
   apiResponses.forEach((darkSkyResponse) => {
-    var currentCity = cities.find((city) => city.lat === darkSkyResponse.lat)
+    console.log('The current darkSkyResponse is: ', darkSkyResponse);
+    var currentCity = cities.find((city) => city.lat === darkSkyResponse.latitude)
     console.log('Currently iterated city is: ', currentCity)
-    var cityTemp = darkSkyResponse.daily.data.temperatureMax;
+    var cityTemp = darkSkyResponse.daily.data[0].temperatureMax;
     console.log('cityTemp: ', cityTemp);
     var { latitude, longitude } = darkSkyResponse;
     console.log(`latitude is: ${latitude} and longitude is: ${longitude}.`);
@@ -25,6 +26,7 @@ module.exports.compareCityTemps = (apiResponses, req, res, cities) => {
   });
 
   console.log('Sending back results: ', results);
+  
   //Implement sort by visits;
   res.status(200).send(results);
 
