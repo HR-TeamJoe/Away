@@ -1,6 +1,12 @@
 var Rebase = require('re-base');
 var firebase = require('firebase');
-var API_KEY = require('./config.keys.js');
+var API_KEY;
+
+if ( process.env.firebaseAPI_KEY ) {
+  API_KEY = process.env.firebaseAPI_KEY;
+} else {
+  API_KEY = require('./config.keys.js'); 
+}
 
 var app = firebase.initializeApp({
   apiKey: API_KEY,
