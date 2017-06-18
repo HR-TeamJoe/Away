@@ -5,3 +5,4 @@ npm-debug.log
 darkSkyConfig.js
 openWeatherConfig.js
 googlePlacesConfig.js
+googleAuthConfig.js
