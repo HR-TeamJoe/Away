@@ -14,7 +14,7 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm'
     }
-
+    console.log(moment());
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -38,6 +38,7 @@ class App extends React.Component {
       temp: this.state.temp
     })
       .then((res) => {
+        console.log('Search response: ', res.data);
         return res
       }).catch((err) => {
         throw err;
