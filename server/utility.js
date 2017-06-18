@@ -1,4 +1,4 @@
-var cityModel = require('../../db/models/cityModel.js'); 
+var cityModel = require('../db/models/cityModel.js'); 
 var axios = require('axios');
 const darkSkyBaseUrl = 'https://api.darksky.net/forecast/';
 const googlePlacesBaseUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=';
@@ -10,8 +10,8 @@ if ( process.env.darkSkyApi ) {
   darkSkySearchUrl = darkSkyBaseUrl + process.env.darkSkyApi;
   googlePlacesSearchUrl = googlePlacesBaseUrl + process.env.googlePlacesApiKey;
 } else {
-  var darkSkyKey = require('../../darkSkyConfig.js');
-  var googlePlacesKey = require('../../googlePlacesConfig.js');
+  var darkSkyKey = require('../darkSkyConfig.js');
+  var googlePlacesKey = require('../googlePlacesConfig.js');
   darkSkySearchUrl = darkSkyBaseUrl + darkSkyKey;
   googlePlacesSearchUrl = googlePlacesBaseUrl + googlePlacesKey;
 }
@@ -31,10 +31,15 @@ const tempDefinitions = {
       //Call util.compareTemps with results of all get requests
 var sendSearchResponse = (req, res) => {
   console.log('Entering sendSearchResponse where req.body is: ', req.body);
+
   getDarkSkyData(req, res)
     .then(compareCityTemps)
     .then(getTourismData)
-
+    .then((cityData) => res.status(200).send(cityData))
+    .catch((err) => {
+      console.log('Search error: ', err);
+      res.sendStatus(500);
+    });
 };
 
 var getDarkSkyData = (req, res) => {
@@ -48,16 +53,16 @@ var getDarkSkyData = (req, res) => {
 
   var citiesFromDb;
   //Fetch all cities from database
-  cityModel.getCity()
+  return cityModel.getCity()
     .then((cities) => {
       console.log('Cities from db are: ', cities);
       citiesFromDb = cities;
       //map array of city lat/long values into an array of get requests wrapped in promises
       var getPromises = cities.map((city) => {
         var {lat, long, city} = city;
-          console.log(`lat: ${lat} long: ${long} city: ${city}`);
-          var getUrl = `${darkSkySearchUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
-          console.log('Creating get request with url: ', getUrl);
+        console.log(`lat: ${lat} long: ${long} city: ${city}`);
+        var getUrl = `${darkSkySearchUrl}/${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
+        console.log('Creating get request with url: ', getUrl);
         return new Promise((resolve, reject) => {
           axios.get(getUrl)
             .then((results) => resolve(results.data))
@@ -68,7 +73,7 @@ var getDarkSkyData = (req, res) => {
       console.log('getPromises is: ', getPromises);
       //Call all promise'd get requests
         //then call compareTemps() and pass in the response
-      Promise.all(getPromises)
+      return Promise.all(getPromises)
         .then((apiResponses) => {
           return {apiResponses, req, res, citiesFromDb};
         });
@@ -87,7 +92,7 @@ var compareCityTemps = (darkSkyResponseObj) => {
   var results = [];
   apiResponses.forEach((darkSkyResponse) => {
     console.log('The current darkSkyResponse is: ', darkSkyResponse);
-    var currentCity = cities.find((city) => city.lat === darkSkyResponse.latitude)
+    var currentCity = citiesFromDb.find((city) => city.lat === darkSkyResponse.latitude)
     console.log('Currently iterated city is: ', currentCity)
     var cityTemp = darkSkyResponse.daily.data[0].temperatureMax;
     console.log('cityTemp: ', cityTemp);
@@ -104,28 +109,33 @@ var compareCityTemps = (darkSkyResponseObj) => {
   });
 
   var topFiveResults = results.slice(0,5);
-  console.log(`Returning top five results: ${topFiveResults}`)
+  console.log(`Returning top five results: ${topFiveResults[0]}`);
+  topFiveResults.forEach((item) => {
+    console.log(item);
+  })
   return topFiveResults;
 
 };
 
 //Use googlePlacesApi to get tourism data about top cities
 var getTourismData = (topCities) => {
-  var tourismDataPromises = topCities.map((city) => {
-    var cityString = city.name.replace(regex,'+');
+  var tourismDataPromises = topCities.map((cityObj) => {
+    var cityString = cityObj.city.replace(regex,'+');
     var searchString = googlePlacesSearchUrl.replace('TARGET', cityString);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
-        .then((results) => resolve(results.data))
+        .then((results) => resolve({city: cityObj, googleData: results.data}))
         .catch((err) => reject(err));
     });
   });
 
-  Promise.all(tourismDataPromises)
-    .then((placesApiReponses) => {
-      
-    })
-    .catch((err) => console.log(err));
+  return Promise.all(tourismDataPromises);
+    // .then((placesApiReponses) => {
+    //   return placesApiReponses.map((apiResponse) => {
+    //     console.log('placesResponse: ', apiResponse);
+    //   });
+    // })
+    // .catch((err) => console.log(err));
 };
 
 //DarkSkyAPI takes lat,long,unixTimeStamp.
@@ -143,5 +153,3 @@ var getYearAgoUnixTime = (date) => {
 }
 
 module.exports.sendSearchResponse = sendSearchResponse;
-module.exports.compareCityTemps = compareCityTemps;
-module.exports.getYearAgoUnixTime = getYearAgoUnixTime;
