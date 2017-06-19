@@ -7,6 +7,7 @@ var passport = require('passport');
 var db = require('./db/models/cityModel.js');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var { googleClientId, googleClientSecret, googleCallbackUrl } = require('./server/config.js');
+var User = require('./db/models/userModel.js');
 
 //Google oauth setup
 passport.use(new GoogleStrategy({
@@ -41,7 +42,9 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(parser.json());
 app.use(require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true }));
 app.use((req, res, next) => {
-  console.log('SESSION: ', req.session);
+  if ( req.session.passport ) {
+    console.log('SESSION: ', req.session.passport.user.photos[0].value);
+  }
   next();
 });
 app.use(passport.initialize());
@@ -49,6 +52,15 @@ app.use(passport.session());
 
 //ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));
+
+app.post('/test/db', (req, res) => {
+  User.addUser(1, 'Rob Cornell', 'nope.jpg');
+  res.sendStatus(201);
+});
+
+app.get('/test/db', (req, res) => {
+  User.findUser(2, 'Rob Cornell', 'nope.jpg', res);
+});
 
 app.use('/api', router);
 
