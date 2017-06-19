@@ -1,5 +1,6 @@
 var cityModel = require('../db/models/cityModel.js'); 
 var axios = require('axios');
+var User = require('../db/models/userModel.js');
 var { darkSkyApi, googlePlacesApi } = require('./config.js');
 const darkSkyUrl = `https://api.darksky.net/forecast/${darkSkyApi}/`
 const googlePlacesUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApi}`;
@@ -22,7 +23,12 @@ var sendSearchResponse = (req, res) => {
   getDarkSkyData(req, res)
     .then(compareCityTemps)
     .then(getTourismData)
-    .then((cityData) => res.status(200).send(cityData))
+    .then((cityData) => {
+      if ( req.session.passport ) { //If logged in, save search
+        User.addToHistory(cityData, req.session.passport.user);  
+      } 
+      res.status(200).send(cityData);
+    })
     .catch((err) => {
       console.log('Search error: ', err);
       res.sendStatus(500);
@@ -36,21 +42,21 @@ var getDarkSkyData = (req, res) => {
   //With paid api access we would access several years' 
   //weather info and average the results
   var yearAgoUnixTime = getYearAgoUnixTime(startDate);
-  console.log('yearAgoUnixTime is: ', yearAgoUnixTime);
+  // console.log('yearAgoUnixTime is: ', yearAgoUnixTime);
 
   var citiesFromDb;
   //Fetch all cities from database
   return cityModel.getCity()
     .then((cities) => {
-      console.log('Cities from db are: ', cities);
+      // console.log('Cities from db are: ', cities);
       citiesFromDb = cities;
 
       //map array of city lat/long values into an array of get requests wrapped in promises
       var getPromises = cities.map((city) => {
         var {lat, long, city} = city;
-        console.log(`lat: ${lat} long: ${long} city: ${city}`);
+        // console.log(`lat: ${lat} long: ${long} city: ${city}`);
         var getUrl = `${darkSkyUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
-        console.log('Creating get request with url: ', getUrl);
+        // console.log('Creating get request with url: ', getUrl);
         return new Promise((resolve, reject) => {
           axios.get(getUrl)
             .then((results) => resolve(results.data))
@@ -78,13 +84,13 @@ var compareCityTemps = (darkSkyResponseObj) => {
 
   var results = [];
   apiResponses.forEach((darkSkyResponse) => {
-    console.log('The current darkSkyResponse is: ', darkSkyResponse);
+    // console.log('The current darkSkyResponse is: ', darkSkyResponse);
     var currentCity = citiesFromDb.find((city) => city.lat === darkSkyResponse.latitude)
-    console.log('Currently iterated city is: ', currentCity)
+    // console.log('Currently iterated city is: ', currentCity)
     var cityTemp = darkSkyResponse.daily.data[0].temperatureMax;
-    console.log('cityTemp: ', cityTemp);
+    // console.log('cityTemp: ', cityTemp);
     var { latitude, longitude } = darkSkyResponse;
-    console.log(`latitude is: ${latitude} and longitude is: ${longitude}.`);
+    // console.log(`latitude is: ${latitude} and longitude is: ${longitude}.`);
     if ( cityTemp > (targetTemp - 7) && cityTemp < (targetTemp + 8) ) {
       results.push(currentCity);
     }
@@ -119,12 +125,12 @@ var getTourismData = (topCities) => {
 //This method converts the target date from user
 //to the unix timestamp from a year before that date.
 var getYearAgoUnixTime = (date) => {
-  console.log('Entering getYearAgoUnixTime, where data is: ', date);
+  // console.log('Entering getYearAgoUnixTime, where data is: ', date);
   var subArray = date.substring(0,10).split('-');
   subArray[0] = '' + ( +subArray[0] - 1 ); //Convert year to number, subtract 1, then convert to string
   date = subArray.join('.');
   var targetDate = new Date(date);
-  console.log('Year ago date is: ', targetDate);
+  // console.log('Year ago date is: ', targetDate);
   var targetUnixTime = targetDate.getTime()/1000|0;
   return targetUnixTime;
 }

@@ -7,6 +7,7 @@ var passport = require('passport');
 var db = require('./db/models/cityModel.js');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var { googleClientId, googleClientSecret, googleCallbackUrl } = require('./server/config.js');
+var User = require('./db/models/userModel.js');
 
 //Google oauth setup
 passport.use(new GoogleStrategy({
@@ -15,11 +16,14 @@ passport.use(new GoogleStrategy({
     callbackURL: googleCallbackUrl
   },
   function(accessToken, refreshToken, profile, cb) {
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      console.log('This is where you would save the user to DB. Profile is: ', profile);
-      // return cb(err, user);
-      return cb(null, profile);
-    // });
+    User.findOrCreate(profile)
+      .then((result) => {
+        console.log('In the findOrCreate then block, result is: ', result);
+        return cb(null, result);
+      })
+      .catch((error) => {
+        return cb(error, null);
+      });
   }
 ));
 
@@ -40,12 +44,15 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(parser.json());
 app.use(require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true }));
-app.use((req, res, next) => {
-  console.log('SESSION: ', req.session);
-  next();
-});
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  if ( req.session.passport ) {
+    console.log('req.session.passport.user is: ', req.session.passport.user)
+    console.log('KEY: ', Object.keys(req.session.passport.user)[0]); 
+  }
+  next();
+});
 
 //ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));
