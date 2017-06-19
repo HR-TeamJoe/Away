@@ -24,10 +24,11 @@ var sendSearchResponse = (req, res) => {
     .then(compareCityTemps)
     .then(getTourismData)
     .then((cityData) => {
-      if ( req.session.passport ) { //If logged in, save search
-        User.addToHistory(cityData, req.session.passport.user);  
-      } 
       res.status(200).send(cityData);
+      if ( req.session.passport ) { //If logged in, save search
+        User.addToHistory(cityData, req.session.passport.user, req.body);  
+      } 
+      
     })
     .catch((err) => {
       console.log('Search error: ', err);
