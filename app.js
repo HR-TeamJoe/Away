@@ -46,6 +46,13 @@ app.use(parser.json());
 app.use(require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  if ( req.session.passport ) {
+    console.log('req.session.passport.user is: ', req.session.passport.user)
+    console.log('KEY: ', Object.keys(req.session.passport.user)[0]); 
+  }
+  next();
+});
 
 //ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));

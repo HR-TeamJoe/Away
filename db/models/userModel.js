@@ -19,12 +19,43 @@ module.exports.findOrCreate = function(googleProfile) {
     });
 };
 
-module.exports.getHistory = function() {
+module.exports.getHistory = function(user) {
+  console.log('In getHistory, user is: ', user);
+  var dbKey = Object.keys(user)[0];
+  return db.fetch(`users/${dbKey}/history`, {
+    context: this,
+    asArray: true
+  }).then((data) => {
+    return data.history;
+  }).catch((error) => {
+    console.log('Error retrieving history: ', error);
+  });
+};
 
-}
-
-module.exports.addToHistory = function(search) {
-
+//If a user is logged in, fetch that user from the db
+  //then set 'history' to that user's history or []
+    //Push the current search result (cities only)
+      //Update db with new history
+module.exports.addToHistory = function(cityData, user) {
+  var dbKey = Object.keys(user)[0]; //The firebase hash/key for this user
+  
+  db.fetch(`users/${dbKey}`, {context: this})
+    .then((user) => {
+      var history = user.history.history || [];
+      var cities = cityData.map((item) => {
+        return item.city;
+      });
+      history.push(cities);
+      return history;
+    }).then((historyToSend) => {
+      return db.post(`users/${dbKey}/history`, {
+        data: { history: historyToSend }
+      });     
+    }).then(() => {
+        console.log('Updated history');
+    }).catch((error) => {
+      console.log('Error saving history: ', error);
+    });
 };
 
 var findUser = (googleProfile) => {
