@@ -16,11 +16,14 @@ passport.use(new GoogleStrategy({
     callbackURL: googleCallbackUrl
   },
   function(accessToken, refreshToken, profile, cb) {
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      console.log('This is where you would save the user to DB. Profile is: ', profile);
-      // return cb(err, user);
-      return cb(null, profile);
-    // });
+    User.findOrCreate(profile)
+      .then((result) => {
+        console.log('In the findOrCreate then block, result is: ', result);
+        return cb(null, result);
+      })
+      .catch((error) => {
+        return cb(error, null);
+      });
   }
 ));
 
@@ -41,26 +44,11 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(parser.json());
 app.use(require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true }));
-app.use((req, res, next) => {
-  if ( req.session.passport ) {
-    console.log('SESSION: ', req.session.passport.user.photos[0].value);
-  }
-  next();
-});
 app.use(passport.initialize());
 app.use(passport.session());
 
 //ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));
-
-app.post('/test/db', (req, res) => {
-  User.addUser(1, 'Rob Cornell', 'nope.jpg');
-  res.sendStatus(201);
-});
-
-app.get('/test/db', (req, res) => {
-  User.findUser(2, 'Rob Cornell', 'nope.jpg', res);
-});
 
 app.use('/api', router);
 

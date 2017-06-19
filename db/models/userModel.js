@@ -1,61 +1,63 @@
 var db =  require('../config.js');
 
-module.exports.findOrCreate = function(user_id, displayName, photo) {
-  var user = {
-      user_id,
-      displayName,
-      photo
-    };
-
+module.exports.findOrCreate = function(googleProfile) {
+  return findUser(googleProfile)
+    .then((result) => {
+      if ( Object.keys(result).length ) {
+        //User match found
+        console.log('User found: ', result);
+        return result;
+      } else {
+        //No user found
+        console.log('No user found. Creating user with googleProfile: ', googleProfile);
+        return addUser(googleProfile);
+      }
+    })
+    .catch((error) => {
+      console.log('Error finding user: ', error);
+      return error;
+    });
 };
 
-module.exports.getSearches = function() {
+module.exports.getHistory = function() {
 
 }
 
-var findUser = (user_id, displayName, photo, res) => {
-  console.log('Entering findUser');
-  db.fetch('users', {
+module.exports.addToHistory = function(search) {
+
+};
+
+var findUser = (googleProfile) => {
+  return db.fetch('users', {
     context: this,
     asArray: false,
     queries: {
       orderByChild: 'user_id',
-      equalTo: 1
+      equalTo: googleProfile.id
     }
-  }).then((data) => {
-    console.log('Found data: ', data);
-    res.status(200).send(data);
-  }).catch((error) => {
-    console.error('Error finding user: ', error);
   });
-
 };
 
-var addUser = (user_id, displayName, photo) => {
+var addUser = (googleProfile) => {
+  var photo = googleProfile.photos[0].value || '';
   var newUser = {
-      user_id: user_id,
-      displayName: displayName,
-      photo: photo
-    };
-  db.push('users', {
+    user_id: googleProfile.id,
+    displayName: googleProfile.displayName,
+    history: [],
+    photo
+  };
+
+  return db.push('users', {
     data: newUser
   }).then(newLocation => {
-    // var generatedKey = newLocation.key;
-    console.log('newLocation is: ', newLocation);
-
+    return newLocation.key;
+  }).then((key) => {
+    return db.fetch(`users/${key}`);
   }).catch((err) => {
     console.log('Error adding user. Error: ', err);
     res.status(500).send('Error adding user. Error: ', err);
   });
-  //available immediately, you don't have to wait for the Promise to resolve
-  // var generatedKey = immediatelyAvailableReference.key;
-}
-
-
-
-
-module.exports.findUser = findUser;
-module.exports.addUser = addUser;
+};
 
 
 
