@@ -41,18 +41,24 @@ module.exports.getHistory = function(user) {
   //then set 'history' to that user's history or []
     //Push the current search result (cities only)
       //Update db with new history
-module.exports.addToHistory = function(cityData, user) {
+module.exports.addToHistory = function(cityData, user, searchTerms) {
   var dbKey = Object.keys(user)[0]; //The firebase hash/key for this user
   
   db.fetch(`users/${dbKey}`, {context: this})
     .then((user) => {
-      var history = user.history.history || [];
+      var history = user.history ? user.history.history : [];
       var cities = cityData.map((item) => {
         return item.city;
       });
-      history.push(cities);
+      var historyObj = {
+        searchTemp: searchTerms.temp,
+        searchDate: searchTerms.startDate,
+        cities
+      }
+      history.push(historyObj);
       return history;
     }).then((historyToSend) => {
+      console.log('history to send:', historyToSend);
       return db.post(`users/${dbKey}/history`, {
         data: { history: historyToSend }
       });     
