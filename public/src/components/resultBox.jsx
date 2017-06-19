@@ -1,40 +1,35 @@
 import React from 'react';
+import db from '../../../db/config.js';
 
 class DestinationBox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showClickTestComment: false,
-      showSyncTestComment: false
+      visits: this.props.destination.city.visits
     };
+
+    this.incrementVisits = this.incrementVisits.bind(this);
   }
 
-  click_Placeholder() {
-    this.setState({
-      showClickTestComment: !this.state.showClickTestComment
+  componentDidMount(){
+    db.syncState(`cities/${this.props.destination.city.city_id}/visits`, {
+      context: this,
+      state: 'visits'
     });
   }
 
-  sync_Placeholder() {
+  incrementVisits() {
+    var count = ++this.state.visits;
     this.setState({
-      showSyncTestComment: !this.state.showSyncTestComment
+      visits: count
     });
-  }
-
-  onClick() {
-    this.click_Placeholder();
-    this.sync_Placeholder();
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.onClick.bind(this)}>{this.props.destination.city}</button>
-        <div>
-          {this.state.showClickTestComment ? <p>click test</p> : null}
-          {this.state.showSyncTestComment ? <p>sync test</p> : null}
-        </div>
+        <button onClick={() => this.incrementVisits()}>{this.props.destination.city.city}</button>
       </div>
     )
   }
