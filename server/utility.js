@@ -1,7 +1,8 @@
 var cityModel = require('../db/models/cityModel.js'); 
 var axios = require('axios');
-const darkSkyBaseUrl = 'https://api.darksky.net/forecast/';
-const googlePlacesBaseUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=';
+var { darkSkyApi, googlePlacesApi } = require('./config.js');
+const darkSkyUrl = `https://api.darksky.net/forecast/${darkSkyApi}/`
+const googlePlacesUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApi}`;
 const regex = /[^a-zA-Z]+/g;
 const tempDefinitions = {
   hot: 90,
@@ -10,18 +11,6 @@ const tempDefinitions = {
   cold: 45,
   freezing: 30
 };
-var darkSkySearchUrl = '';
-var googlePlacesSearchUrl = '';
-
-if ( process.env.darkSkyApi ) {
-  darkSkySearchUrl = darkSkyBaseUrl + process.env.darkSkyApi;
-  googlePlacesSearchUrl = googlePlacesBaseUrl + process.env.googlePlacesApiKey;
-} else {
-  var darkSkyKey = require('../darkSkyConfig.js');
-  var googlePlacesKey = require('../googlePlacesConfig.js');
-  darkSkySearchUrl = darkSkyBaseUrl + darkSkyKey;
-  googlePlacesSearchUrl = googlePlacesBaseUrl + googlePlacesKey;
-}
 
 //Receives desired temperature and date from landing page
 //Pull all cities from db
@@ -30,7 +19,6 @@ if ( process.env.darkSkyApi ) {
       //Call util.compareTemps with results of all get requests
 var sendSearchResponse = (req, res) => {
   console.log('Entering sendSearchResponse where req.body is: ', req.body);
-
   getDarkSkyData(req, res)
     .then(compareCityTemps)
     .then(getTourismData)
@@ -61,7 +49,7 @@ var getDarkSkyData = (req, res) => {
       var getPromises = cities.map((city) => {
         var {lat, long, city} = city;
         console.log(`lat: ${lat} long: ${long} city: ${city}`);
-        var getUrl = `${darkSkySearchUrl}/${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
+        var getUrl = `${darkSkyUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
         console.log('Creating get request with url: ', getUrl);
         return new Promise((resolve, reject) => {
           axios.get(getUrl)
@@ -116,7 +104,7 @@ var compareCityTemps = (darkSkyResponseObj) => {
 var getTourismData = (topCities) => {
   var tourismDataPromises = topCities.map((cityObj) => {
     var cityString = cityObj.city.replace(regex,'+');
-    var searchString = googlePlacesSearchUrl.replace('TARGET', cityString);
+    var searchString = googlePlacesUrl.replace('TARGET', cityString);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => resolve({city: cityObj, googleData: results.data}))
