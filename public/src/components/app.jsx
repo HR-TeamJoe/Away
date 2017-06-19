@@ -12,7 +12,8 @@ class App extends React.Component {
 
     this.state = {
       startDate: moment(),
-      temp: 'warm'
+      temp: 'warm',
+      results: []
     }
     console.log(moment());
     this.changeTemp = this.changeTemp.bind(this);
@@ -38,8 +39,10 @@ class App extends React.Component {
       temp: this.state.temp
     })
       .then((res) => {
-        console.log('Search response: ', res.data);
-        return res
+        this.setState({
+          results: res.data
+        })
+        return res.data
       }).catch((err) => {
         throw err;
       })
@@ -61,9 +64,10 @@ class App extends React.Component {
             <button className="searchbutton" onClick={(e) => this.getCityResults(e)}>Go!</button>
           </form>
         </div>
-        
+
         <div>
           <MapView />
+          <DestinationsList destinations={this.state.results}/>
         </div>
       </div>
     )
