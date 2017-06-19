@@ -5,11 +5,12 @@ class Results extends React.Component {
     super(props);
   }
 
- render () {
-  return (
-      <div>
+  render() {
+    return (
+      <div className="results">
         <DestinationsList destinations={props.results}/>
         <MapView destinations={props.results}/>
+        <ResultsTabs destinations={props.results}/>
       </div>
     )
  } 
