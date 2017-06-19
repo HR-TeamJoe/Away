@@ -52,6 +52,10 @@ class App extends React.Component {
       })
   }
 
+  showResultsPage() {
+    this.setState({'sentSearch': !this.state.sentSearch});
+  }
+
   render() {
     var Page = null;
     if ( !this.state.sentSearch ) {
@@ -61,12 +65,16 @@ class App extends React.Component {
     }
 
     return (
-      Page
+      <div>
+        <span className="navSpan">
+          <a href="/auth/google">Sign In With Google</a> 
+          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
+        </span>
+        {Page}
+      </div>
     )
   }
 }
 
 
 module.exports = App;
-
-//
