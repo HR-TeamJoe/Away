@@ -19,6 +19,8 @@ module.exports.findOrCreate = function(googleProfile) {
     });
 };
 
+//Take the key from the user object, this is the firebase 'index' value, basically
+  //Fetch the user history and return it
 module.exports.getHistory = function(user) {
   console.log('In getHistory, user is: ', user);
   var dbKey = Object.keys(user)[0];
@@ -26,7 +28,8 @@ module.exports.getHistory = function(user) {
     context: this,
     asArray: true
   }).then((data) => {
-    return data.history;
+    console.log('Returning data.history: ', data[0]);
+    return data[0];
   }).catch((error) => {
     console.log('Error retrieving history: ', error);
   });
