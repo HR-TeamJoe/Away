@@ -5,6 +5,8 @@ import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
+import Results from './results.jsx';
+import Search from './search.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,6 +42,7 @@ class App extends React.Component {
       temp: this.state.temp
     })
       .then((res) => {
+        this.setState({'sentSearch': true});
         this.setState({
           results: res.data
         })
@@ -50,27 +53,20 @@ class App extends React.Component {
   }
 
   render() {
-
+    var Page = null;
+    if ( !this.state.sentSearch ) {
+      Page = <Search getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
+    } else if ( this.state.sentSearch ) {
+      Page = <Results results={this.state.results}/>;
+    }
 
     return (
-      <div className="search">
-        <h3>I would like to go somewhere...</h3>
-        <div>
-          <span>
-            <TempDropdown className="temperature" options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.changeTemp} temp={this.state.temp}/>
-          </span>
-          <h3>around</h3>
-          <span>
-            <Calendar startDate={this.state.startDate} changeDate={this.changeDate}/>
-          </span>
-          <form>
-            <button className="searchbutton" onClick={(e) => this.getCityResults(e)}>Go!</button>
-          </form>
-        </div>
-      </div>
+      Page
     )
   }
 }
 
 
 module.exports = App;
+
+//

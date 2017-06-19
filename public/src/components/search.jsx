@@ -1,4 +1,6 @@
 import React from 'react';
+import Calendar from './calendar.jsx';
+import TempDropdown from './tempDropdown.jsx';
 
 class Search extends React.Component {
   constructor(props) {
@@ -7,18 +9,18 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className="search">
+      <div>
         <h3>I would like to go somewhere...</h3>
         <div>
           <span>
-            <TempDropdown className="temperature" options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.changeTemp} temp={this.state.temp}/>
-          </span>
-          <h3>around</h3>
+            <TempDropdown className="temperature" options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.props.changeTemp} temp={this.props.temp}/>
+          </span>        
+          <h3>around</h3>          
           <span>
-            <Calendar startDate={this.state.startDate} changeDate={this.changeDate}/>
+            <Calendar startDate={this.props.startDate} changeDate={this.props.changeDate}/>
           </span>
           <form>
-            <button className="searchbutton" onClick={(e) => this.getCityResults(e)}>Go!</button>
+            <button className="searchbutton" onClick={(e) => this.props.getCityResults(e)}>Go!</button>
           </form>
         </div>
       </div>
@@ -27,3 +29,4 @@ class Search extends React.Component {
 }
 
 export default Search;
+

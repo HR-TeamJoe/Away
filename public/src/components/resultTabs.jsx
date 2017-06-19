@@ -1,9 +1,10 @@
+import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-var ResultsTabs = (props) => (
+var ResultTabs = (props) => (
 
   <div>Results Tabs!</div>
 
 );
 
-export default ResultsTabs;
+export default ResultTabs;

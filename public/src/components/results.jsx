@@ -1,4 +1,7 @@
 import React from 'react';
+import MapView from './mapView.jsx';
+import DestinationsList from './resultBoxes.jsx';
+import ResultTabs from './resultTabs.jsx';
 
 class Results extends React.Component {
   constructor(props) {
@@ -8,9 +11,9 @@ class Results extends React.Component {
   render() {
     return (
       <div className="results">
-        <DestinationsList destinations={props.results}/>
-        <MapView destinations={props.results}/>
-        <ResultsTabs destinations={props.results}/>
+        <DestinationsList destinations={this.props.results}/>
+        <MapView destinations={this.props.results}/>
+        <ResultTabs destinations={this.props.results}/>
       </div>
     )
  } 
