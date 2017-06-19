@@ -1,5 +1,7 @@
 var db =  require('../config.js');
 
+//Try to find a user
+//If not found, create it in db.
 module.exports.findOrCreate = function(googleProfile) {
   return findUser(googleProfile)
     .then((result) => {
@@ -61,6 +63,7 @@ module.exports.addToHistory = function(cityData, user) {
     });
 };
 
+//Find user with user_id matching the googleProfile.id
 var findUser = (googleProfile) => {
   return db.fetch('users', {
     context: this,
@@ -72,6 +75,8 @@ var findUser = (googleProfile) => {
   });
 };
 
+//Add user to database.
+//If there is no photo, set the photo url to ''
 var addUser = (googleProfile) => {
   var photo = googleProfile.photos[0].value || '';
   var newUser = {
