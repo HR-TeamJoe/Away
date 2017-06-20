@@ -27,7 +27,7 @@
 
 .react-tabs__tab-panel {
   display: none;
-  padding: 5px 0;
+  padding: 5px;
   background: whitesmoke;
   height: 30em;
 }

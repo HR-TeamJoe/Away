@@ -13,21 +13,24 @@ var ResultTabs = (props) => (
     {props.destinations.map((destination, idx) => {
       return (
         <TabPanel key={idx}>
-          <span className="tourism">
+          <span className="resultsList tourism">
+            <h3 className="resultsListHeader">Experiences</h3>
             {destination.tourism.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+              return <div className="resultsListItem"><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
             })}
           </span>
-          <span className="restaurants">
-            {destination.restaurants.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
-            })}
-          </span>
-          <span className="hotels">
+          <span className="resultsList hotels">
+            <h3 className="resultsListHeader">Hotels</h3>
             {destination.hotels.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+              return <div className="resultsListItem"><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
             })}
           </span>
+          <span className="resultsList restaurants">
+            <h3 className="resultsListHeader">Restaurants</h3>
+            {destination.restaurants.results.map((location, locIdx) => {
+              return <div className="resultsListItem"><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+            })}
+          </span>          
         </TabPanel> 
       )
     })}

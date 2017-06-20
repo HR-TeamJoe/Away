@@ -113,16 +113,32 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.resultsListHeader {
+  /*margin: 3px;*/
+  text-decoration: underline black;
+  margin: 0 0 5px 0;
+}
+
+.resultsList {
+  padding: 3px;
+  height: 100%;
+}
+
+.resultsListItem {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
 .tourism {
   float: left;
 }
 
 .hotels {
-  float: center;
+  float: right;
 }
 
 .restaurants {
-  float: right;
+  float: center;
 }
 
 
