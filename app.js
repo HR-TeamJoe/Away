@@ -4,9 +4,9 @@ var morgan = require('morgan');
 var router = require('./server/router/router.js');
 var path = require('path');
 var passport = require('passport');
-var db = require('./db/models/cityModel.js');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var { googleClientId, googleClientSecret, googleCallbackUrl } = require('./server/config.js');
+var db = require('./db/models/cityModel.js');
 var User = require('./db/models/userModel.js');
 
 //Google oauth setup
