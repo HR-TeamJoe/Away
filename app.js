@@ -58,10 +58,10 @@ app.use(express.static(path.resolve(__dirname, './public')));
 app.use('/api', router);
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { prompt: 'consent', scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { prompt: 'select_account', failureRedirect: '/login', }), //HAVE TO CHANGE THIS REDIRECT URL
+  passport.authenticate('google', { prompt: 'consent', failureRedirect: '/login', }), //HAVE TO CHANGE THIS REDIRECT URL
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
