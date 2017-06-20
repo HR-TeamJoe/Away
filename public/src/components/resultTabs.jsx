@@ -13,9 +13,21 @@ var ResultTabs = (props) => (
     {props.destinations.map((destination, idx) => {
       return (
         <TabPanel key={idx}>
-          {destination.googleData.results.map((location, locIdx) => {
-            return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
-          })}
+          <span className="tourism">
+            {destination.tourism.results.map((location, locIdx) => {
+              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+            })}
+          </span>
+          <span className="restaurants">
+            {destination.restaurants.results.map((location, locIdx) => {
+              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+            })}
+          </span>
+          <span className="hotels">
+            {destination.hotels.results.map((location, locIdx) => {
+              return <div><a key={locIdx} href="http://www.google.com">{location.name}</a></div>;
+            })}
+          </span>
         </TabPanel> 
       )
     })}
