@@ -25,12 +25,11 @@ var sendSearchResponse = (req, res) => {
   getDarkSkyData(req, res)
     .then(compareCityTemps)
     .then(getGoogleData)
-    .then((cityData) => {
-      res.status(200).send(cityData);
+    .then((allCitiesData) => {
+      res.status(200).send(allCitiesData);
       if ( req.session.passport ) { //If logged in, save search
-        User.addToHistory(cityData, req.session.passport.user, req.body);  
-      } 
-      
+        User.addToHistory(allCitiesData, req.session.passport.user, req.body);  
+      }  
     })
     .catch((err) => {
       console.log('Search error: ', err);
@@ -45,21 +44,15 @@ var getDarkSkyData = (req, res) => {
   //With paid api access we would access several years' 
   //weather info and average the results
   var yearAgoUnixTime = getYearAgoUnixTime(startDate);
-  // console.log('yearAgoUnixTime is: ', yearAgoUnixTime);
-
   var citiesFromDb;
   //Fetch all cities from database
   return cityModel.getCity()
     .then((cities) => {
-      // console.log('Cities from db are: ', cities);
       citiesFromDb = cities;
-
       //map array of city lat/long values into an array of get requests wrapped in promises
       var getPromises = cities.map((city) => {
         var {lat, long, city} = city;
-        // console.log(`lat: ${lat} long: ${long} city: ${city}`);
         var getUrl = `${darkSkyUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
-        // console.log('Creating get request with url: ', getUrl);
         return new Promise((resolve, reject) => {
           axios.get(getUrl)
             .then((results) => resolve(results.data))
@@ -87,13 +80,9 @@ var compareCityTemps = (darkSkyResponseObj) => {
 
   var results = [];
   apiResponses.forEach((darkSkyResponse) => {
-    // console.log('The current darkSkyResponse is: ', darkSkyResponse);
     var currentCity = citiesFromDb.find((city) => city.lat === darkSkyResponse.latitude)
-    // console.log('Currently iterated city is: ', currentCity)
     var cityTemp = darkSkyResponse.daily.data[0].temperatureMax;
-    // console.log('cityTemp: ', cityTemp);
     var { latitude, longitude } = darkSkyResponse;
-    // console.log(`latitude is: ${latitude} and longitude is: ${longitude}.`);
     if ( cityTemp > (targetTemp - 7) && cityTemp < (targetTemp + 8) ) {
       results.push(currentCity);
     }
@@ -109,13 +98,19 @@ var compareCityTemps = (darkSkyResponseObj) => {
 
 };
 
+//Calls all three google places methods below
+//Returns an array of objects
+//Each object contains 1) a city object from the topCities array
+//then additional objects for tourism, hotels, restaurants
 var getGoogleData = (topCities) => {
   return getTourismData(topCities)
     .then(getHotelsData)
     .then(getRestaurantsData);
 };
 
-//Use googlePlacesApi to get tourism data about top cities
+//First call to Google Place Web API
+//For each city, return a new object with that city object
+//and the results of a 'top destinations' search.
 var getTourismData = (topCities) => {
   var tourismDataPromises = topCities.map((cityObj) => {
     var cityString = cityObj.city.replace(regex,'+');
@@ -126,13 +121,14 @@ var getTourismData = (topCities) => {
         .catch((err) => reject(err));
     });
   });
-
   return Promise.all(tourismDataPromises);
 };
 
+//Second call to Google Places Web API
+//Extend the tourism data results object on line 127 with
+//the results from the 'top hotels' search
 var getHotelsData = (arrayOfGoogleData) => {
   var hotelsDataPromises = arrayOfGoogleData.map((cityObj) => {
-    console.log('In getHotelsData, cityObj.city is: ', cityObj.city);
     var cityString = cityObj.city.city.replace(regex,'+');
     var searchString = googlePlacesHotelsUrl.replace('TARGET', cityString);
     return new Promise((resolve, reject) => {
@@ -144,13 +140,14 @@ var getHotelsData = (arrayOfGoogleData) => {
         .catch((err) => reject(err));
     });
   });
-
   return Promise.all(hotelsDataPromises);
 }
 
+//Second call to Google Places Web API
+//Extend the hotels data results object on line 146 with
+//the results from the 'top restaurants' search
 var getRestaurantsData = (arrayOfGoogleData) => {
   var restaurantsDataPromises = arrayOfGoogleData.map((cityObj) => {
-    console.log('In getHotelsData, cityObj.city is: ', cityObj.city);
     var cityString = cityObj.city.city.replace(regex,'+');
     var searchString = googlePlacesRestaurantsUrl.replace('TARGET', cityString);
     return new Promise((resolve, reject) => {
@@ -162,7 +159,6 @@ var getRestaurantsData = (arrayOfGoogleData) => {
         .catch((err) => reject(err));
     });
   });
-
   return Promise.all(restaurantsDataPromises);
 }
 
