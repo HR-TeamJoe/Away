@@ -41,7 +41,8 @@
     "startmon": "nodemon app.js",
     "webpack": "webpack -d --watch",
     "test": "test",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p",
+    "freshtall": "rm -rf node_modules && rm -rf package-lock.json && npm install"
   },
   "repository": {
     "type": "git",
