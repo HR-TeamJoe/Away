@@ -4,3 +4,6 @@ npm-debug.log
 /public/dist
 darkSkyConfig.js
 openWeatherConfig.js
+googlePlacesConfig.js
+googleAuthConfig.js
+/server/apiKeys.js
