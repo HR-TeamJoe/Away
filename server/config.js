@@ -1,12 +1,12 @@
 //This creates keys based on whether or not
 //the application is running in a deployed setting
-var darkSkyApi, googleClientId, googleClientSecret, googlePlacesApi, openWeatherApi, googleCallbackUrl;
+var darkSkyApi, googleClientId, googleClientSecret, googlePlacesApiKey, openWeatherApi, googleCallbackUrl;
 
 if ( process.env.darkSkyApi ) {
   darkSkyApi = process.env.darkSkyApi;
   googleClientId = process.env.googleClientId;
   googleClientSecret = process.env.googleClientSecret;
-  googlePlacesApi = process.env.googlePlacesApi;
+  googlePlacesApiKey = process.env.googlePlacesApiKey;
   openWeatherApi = process.env.openWeatherApi;
   googleCallbackUrl = 'https://hr-away.herokuapp.com/auth/google/callback';
 } else {
@@ -14,7 +14,7 @@ if ( process.env.darkSkyApi ) {
   darkSkyApi = keys.darkSkyApi
   googleClientId = keys.googleClientId;
   googleClientSecret = keys.googleClientSecret;
-  googlePlacesApi = keys.googlePlacesApi;
+  googlePlacesApiKey = keys.googlePlacesApiKey;
   openWeatherApi = keys.openWeatherApi;
   googleCallbackUrl = keys.googleCallbackUrl;
 }
@@ -22,7 +22,7 @@ if ( process.env.darkSkyApi ) {
 module.exports = {
   googleClientId,
   googleClientSecret,
-  googlePlacesApi,
+  googlePlacesApiKey,
   googleCallbackUrl,
   darkSkyApi,
   openWeatherApi
