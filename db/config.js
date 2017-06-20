@@ -5,7 +5,7 @@ var app;
 console.log('PROCESS.ENV IS: ', process.env);
 console.log('firebaseAPI_KEY is: ', process.env.firebaseAPI_KEY);
 
-var API_KEY = process.env.firebaseAPI_KEY;
+var API_KEY = process.env.FIREBASE_API_KEY;
 console.log('API_KEY is now: ', API_KEY);
 
 if ( API_KEY ) {
