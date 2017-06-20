@@ -16,7 +16,7 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm',
       results: [],
-      sentSearch: false
+      sentSearch: true //REVERT
     }
     console.log(moment());
     this.changeTemp = this.changeTemp.bind(this);
@@ -42,10 +42,11 @@ class App extends React.Component {
       temp: this.state.temp
     })
       .then((res) => {
-        this.setState({'sentSearch': true});
         this.setState({
+          sentSearch: true,
           results: res.data
         })
+        console.log('Data received: ', JSON.stringify(res.data));
         return res.data
       }).catch((err) => {
         throw err;
