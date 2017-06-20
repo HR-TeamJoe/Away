@@ -10,12 +10,13 @@ if ( process.env.darkSkyApi ) {
   openWeatherApi = process.env.openWeatherApi;
   googleCallbackUrl = 'https://hr-away.herokuapp.com/auth/google/callback';
 } else {
-  darkSkyApi = '4f5b80ab684573be2cf5563f5f71309c';
-  googleClientId = '945753484676-kh15ag8ikibksd1osvqio13tpg9l5pcm.apps.googleusercontent.com';
-  googleClientSecret = 'S3e1rG4wja5IEZOVKqE4m45Z';
-  googlePlacesApi = 'AIzaSyBpQn_rXT4KufwYeMva4zIJlxCJmvenwqM';
-  openWeatherApi = '63669c93468342a734ed4aff1a0e05c4';
-  googleCallbackUrl = 'http://localhost:1337/auth/google/callback';
+  var keys = require('./apiKeys.js');
+  darkSkyApi = keys.darkSkyApi
+  googleClientId = keys.googleClientId;
+  googleClientSecret = keys.googleClientSecret;
+  googlePlacesApi = keys.googlePlacesApi;
+  openWeatherApi = keys.openWeatherApi;
+  googleCallbackUrl = keys.googleCallbackUrl;
 }
 
 module.exports = {
