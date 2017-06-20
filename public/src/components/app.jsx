@@ -16,7 +16,7 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm',
       results: [],
-      sentSearch: true //REVERT
+      sentSearch: false
     }
     console.log(moment());
     this.changeTemp = this.changeTemp.bind(this);

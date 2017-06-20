@@ -18,7 +18,7 @@ class Results extends React.Component {
       <div className="results">
         <DestinationsList destinations={this.props.results}/>
         <MapView destinations={this.props.results}/>
-        <ResultTabs destinations={this.state.testArray}/>
+        <ResultTabs destinations={this.props.results}/>
       </div>
     )
  } 
