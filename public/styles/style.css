@@ -120,6 +120,7 @@ body {
 }
 
 .resultsList {
+  width: 33%;
   padding: 3px;
   height: 100%;
 }
@@ -138,7 +139,7 @@ body {
 }
 
 .restaurants {
-  float: center;
+  float: right;
 }
 
 

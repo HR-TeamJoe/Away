@@ -5,7 +5,7 @@
 }
 
 .react-tabs__tab {
-  background: whitesmoke;
+  background: #cccccc;
   display: inline-block;
   border: 1px solid transparent;
   border-bottom: none;
@@ -19,7 +19,7 @@
 
 .react-tabs__tab--selected {
   /*background: #fff;*/
-  background: red;
+  background: whitesmoke;
   border-color: #aaa;
   color: black;
   border-radius: 5px 5px 0 0;
