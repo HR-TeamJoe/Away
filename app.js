@@ -61,7 +61,7 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }), //HAVE TO CHANGE THIS REDIRECT URL
+  passport.authenticate('google', { prompt: 'select_account', failureRedirect: '/login', }), //HAVE TO CHANGE THIS REDIRECT URL
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
