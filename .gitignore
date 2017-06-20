@@ -6,4 +6,5 @@ darkSkyConfig.js
 openWeatherConfig.js
 googlePlacesConfig.js
 googleAuthConfig.js
-/public/config.js
+server/config.js
+/server/apiKeys.js
