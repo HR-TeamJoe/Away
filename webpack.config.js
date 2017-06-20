@@ -10,6 +10,13 @@ module.exports = {
     filename: 'bundle.js',
     path: BUILD_DIR
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
+    })
+  ],
   module: {
     rules: [
       {
