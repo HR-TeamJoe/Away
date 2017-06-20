@@ -1,11 +1,11 @@
 var cityModel = require('../db/models/cityModel.js'); 
 var axios = require('axios');
 var User = require('../db/models/userModel.js');
-var { darkSkyApi, googlePlacesApi } = require('./config.js');
+var { darkSkyApi, googlePlacesApiKey } = require('./config.js');
 const darkSkyUrl = `https://api.darksky.net/forecast/${darkSkyApi}/`
-const googlePlacesDestinationsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApi}`;
-const googlePlacesRestaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+restaurants+in+TARGET&key=${googlePlacesApi}`;
-const googlePlacesHotelsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+hotels+in+TARGET&key=${googlePlacesApi}`;
+const googlePlacesDestinationsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApiKey}`;
+const googlePlacesRestaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+restaurants+in+TARGET&key=${googlePlacesApiKey}`;
+const googlePlacesHotelsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+hotels+in+TARGET&key=${googlePlacesApiKey}`;
 const regex = /[^a-zA-Z]+/g;
 const tempDefinitions = {
   hot: 90,
