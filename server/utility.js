@@ -3,7 +3,9 @@ var axios = require('axios');
 var User = require('../db/models/userModel.js');
 var { darkSkyApi, googlePlacesApi } = require('./config.js');
 const darkSkyUrl = `https://api.darksky.net/forecast/${darkSkyApi}/`
-const googlePlacesUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApi}`;
+const googlePlacesDestinationsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApi}`;
+const googlePlacesRestaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+restaurants+in+TARGET&key=${googlePlacesApi}`;
+const googlePlacesHotelsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+hotels+in+TARGET&key=${googlePlacesApi}`;
 const regex = /[^a-zA-Z]+/g;
 const tempDefinitions = {
   hot: 90,
@@ -22,7 +24,7 @@ var sendSearchResponse = (req, res) => {
   console.log('Entering sendSearchResponse where req.body is: ', req.body);
   getDarkSkyData(req, res)
     .then(compareCityTemps)
-    .then(getTourismData)
+    .then(getGoogleData)
     .then((cityData) => {
       res.status(200).send(cityData);
       if ( req.session.passport ) { //If logged in, save search
@@ -107,20 +109,62 @@ var compareCityTemps = (darkSkyResponseObj) => {
 
 };
 
+var getGoogleData = (topCities) => {
+  return getTourismData(topCities)
+    .then(getHotelsData)
+    .then(getRestaurantsData);
+};
+
 //Use googlePlacesApi to get tourism data about top cities
 var getTourismData = (topCities) => {
   var tourismDataPromises = topCities.map((cityObj) => {
     var cityString = cityObj.city.replace(regex,'+');
-    var searchString = googlePlacesUrl.replace('TARGET', cityString);
+    var searchString = googlePlacesDestinationsUrl.replace('TARGET', cityString);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
-        .then((results) => resolve({city: cityObj, googleData: results.data}))
+        .then((results) => resolve({city: cityObj, tourism: results.data}))
         .catch((err) => reject(err));
     });
   });
 
   return Promise.all(tourismDataPromises);
 };
+
+var getHotelsData = (arrayOfGoogleData) => {
+  var hotelsDataPromises = arrayOfGoogleData.map((cityObj) => {
+    console.log('In getHotelsData, cityObj.city is: ', cityObj.city);
+    var cityString = cityObj.city.city.replace(regex,'+');
+    var searchString = googlePlacesHotelsUrl.replace('TARGET', cityString);
+    return new Promise((resolve, reject) => {
+      axios.get(searchString)
+        .then((results) => {
+          var objWithHotels = Object.assign(cityObj, {hotels: results.data});
+          resolve(objWithHotels);
+        })
+        .catch((err) => reject(err));
+    });
+  });
+
+  return Promise.all(hotelsDataPromises);
+}
+
+var getRestaurantsData = (arrayOfGoogleData) => {
+  var restaurantsDataPromises = arrayOfGoogleData.map((cityObj) => {
+    console.log('In getHotelsData, cityObj.city is: ', cityObj.city);
+    var cityString = cityObj.city.city.replace(regex,'+');
+    var searchString = googlePlacesRestaurantsUrl.replace('TARGET', cityString);
+    return new Promise((resolve, reject) => {
+      axios.get(searchString)
+        .then((results) => {
+          var objWithRestaurants = Object.assign(cityObj, {restaurants: results.data});
+          resolve(objWithRestaurants);
+        })
+        .catch((err) => reject(err));
+    });
+  });
+
+  return Promise.all(restaurantsDataPromises);
+}
 
 //DarkSkyAPI takes lat,long,unixTimeStamp.
 //This method converts the target date from user
