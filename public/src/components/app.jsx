@@ -16,6 +16,8 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm',
       results: [],
+      isLoggedIn: false,
+      user: {},
       sentSearch: false
     }
     console.log(moment());
@@ -23,19 +25,36 @@ class App extends React.Component {
     this.changeDate = this.changeDate.bind(this);
   }
 
+  componentWillMount() {
+    axios.get('/auth/verify')
+      .then((res) => {
+        if ( res.data.isLoggedIn ) {
+          this.setState({
+            isLoggedIn: res.data.isLoggedIn,
+            user: res.data.user
+          });
+        } else {
+          this.setState({isLoggedIn: false});
+        }
+
+        console.log('Logged in: ', this.state.isLoggedIn);
+        console.log('User is: ', this.state.user);
+      });
+  }
+
   changeTemp(e) {
     this.setState({
       temp: e.target.value
-    })
+    });
   }
 
-  changeDate(date){
+  changeDate(date) {
     this.setState({
       startDate: date
-    })
+    });
   }
 
-  getCityResults(e){
+  getCityResults(e) {
     e.preventDefault();
     axios.post('/api/search', {
       startDate: this.state.startDate,
@@ -50,11 +69,15 @@ class App extends React.Component {
         return res.data
       }).catch((err) => {
         throw err;
-      })
+      });
   }
 
   showResultsPage() {
     this.setState({'sentSearch': !this.state.sentSearch});
+  }
+
+  logout(e) {
+    axios.post('/auth/logout');
   }
 
   render() {
@@ -68,7 +91,12 @@ class App extends React.Component {
     return (
       <div>
         <span className="navSpan">
-          <a href="/auth/google">Sign In With Google</a> 
+          <form action="/auth/google">
+            <input type="submit" value="Sign In With Google"/>
+          </form>
+          <form onSubmit={this.logout.bind(this)}>
+            <input type="submit" value="Log out"/>
+          </form>
           <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
         </span>
         {Page}
