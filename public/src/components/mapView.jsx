@@ -27,9 +27,9 @@ class MapView extends React.Component {
     });
 
 		return (
-			<div>
+			
       <div className="row center-xs map">
-				<Map className="col-xs-10"
+				<Map className="col-xs-11"
           ref={m => { this.leafletMap = m; }}
 					center={center}
 					zoom={zoom}
@@ -40,7 +40,7 @@ class MapView extends React.Component {
 					{Markers}
 				</Map>
 			</div>
-      </div>
+      
 		)
 	}
 }

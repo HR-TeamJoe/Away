@@ -7,44 +7,44 @@ var testSummary = `New York City comprises 5 boroughs sitting where the Hudson R
 //destination.city.summary
 
 var ResultTabs = (props) => (
-  <div>
-  <Tabs className='center-xs col-xs-12'>
-    <TabList>
+  <div >
+    <Tabs >
+      <TabList>
+        {props.destinations.map((destination, idx) => {
+          return <Tab key={idx}>{destination.city.city}</Tab>;
+        })}
+      </TabList>
       {props.destinations.map((destination, idx) => {
-        return <Tab key={idx}>{destination.city.city}</Tab>;
+        return (
+          <TabPanel key={idx} >
+            <div>
+              <div>Overview</div>
+              <div>{destination.city.summary}</div>
+            </div>
+            <div >
+            <span >
+              <h3>Experiences</h3>
+              {destination.tourism.results.map((location, locIdx) => {
+                return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>
+            <span >
+              <h3>Hotels</h3>
+              {destination.hotels.results.map((location, locIdx) => {
+                return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>
+            <span >
+              <h3>Restaurants</h3>
+              {destination.restaurants.results.map((location, locIdx) => {
+                return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>        
+            </div>  
+          </TabPanel> 
+        )
       })}
-    </TabList>
-    {props.destinations.map((destination, idx) => {
-      return (
-        <TabPanel key={idx} className='start-xs'>
-          <div>
-            <div>Overview</div>
-            <div>{destination.city.summary}</div>
-          </div>
-          <div className='row'>
-          <span className='col-xs-4'>
-            <h3>Experiences</h3>
-            {destination.tourism.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>
-          <span className='col-xs-4'>
-            <h3>Hotels</h3>
-            {destination.hotels.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>
-          <span className='col-xs-4'>
-            <h3>Restaurants</h3>
-            {destination.restaurants.results.map((location, locIdx) => {
-              return <div><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>        
-          </div>  
-        </TabPanel> 
-      )
-    })}
-  </Tabs>
+    </Tabs>
   </div>
 );
 
