@@ -1,4 +1,5 @@
-var userModel = require('../../..db/models/userModel.js');
+import React from 'react';
+import axios from 'axios';
 
 class SearchHistory extends React.Component {
   constructor(props) {
@@ -8,34 +9,50 @@ class SearchHistory extends React.Component {
       userName: null,
       searchHistory: []
     }
+    console.log(this.state.searchHistory.cities);
   }
 
   componentDidMount() {
+
+  }
+
+  historyTest() {
     axios.get('/api/history')
     .then(response => {
-      var displayName = 'Test Name';
-      var previousSearches = response.data.history;
+      var displayName = 'response.user_id';
+      var photo = 'response.photo';
+      var previousSearches = response.data;
 
+      // console.log('previousSearches:', previousSearches);
+      // console.log('response:', response);
+      console.log('Setting searchHistory to: ', previousSearches)
       this.setState({
         userName: displayName,
         searchHistory: previousSearches
       });
-    }
+
+    });
   }
 
   render() {
     return (
       <div>
-        <h1>`Search History for ${this.state.userName}:`</h1>
+        <button onClick={this.historyTest.bind(this)}>History</button>
+        <h1>Search History for {this.state.userName}:</h1>
         <div>
           {
-            searchHistory.map((search, i) => (
-              <span>{search.searchTemp}</span>
-              <span>{search.searchDate}</span>
-              <span>{search.cities.map((city, i) => (city.city))}</span>
-            ))
+            this.state.searchHistory.map((search, i) =>
+              <div>
+                <span>{search.searchTemp}</span>
+                <span>{search.searchDate}</span>
+                {search.cities.map((city) => <span>{city.city}</span>)}
+              </div>
+            )
           }
         </div>
+      </div>
     )
   }
 }
+
+module.exports = SearchHistory;
