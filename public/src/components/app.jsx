@@ -5,8 +5,10 @@ import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
-import Results from './results.jsx';
+
+import Nav from './nav.jsx';
 import Search from './search.jsx';
+import Results from './results.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm',
       results: [],
-      sentSearch: false
+      sentSearch: false  //DEFINITELY CHANGE IT BACK TO FALSE JENNYYYYY
     }
     console.log(moment());
     this.changeTemp = this.changeTemp.bind(this);
@@ -67,15 +69,12 @@ class App extends React.Component {
 
     return (
       <div>
-        <span className="navSpan">
-          <a href="/auth/google">Sign In With Google</a> 
-          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
-        </span>
+        <Nav />   
         {Page}
+        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
       </div>
     )
   }
 }
-
 
 module.exports = App;
