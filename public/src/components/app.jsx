@@ -7,6 +7,7 @@ import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
 import Results from './results.jsx';
 import Search from './search.jsx';
+import SearchHistory from './userSearchHistory.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends React.Component {
       sentSearch: false
     }
     console.log(moment());
+    console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -33,6 +35,7 @@ class App extends React.Component {
     this.setState({
       startDate: date
     })
+    console.log('startDate is: ', this.state.startDate);
   }
 
   getCityResults(e){
@@ -68,14 +71,15 @@ class App extends React.Component {
     return (
       <div>
         <span className="navSpan">
-          <a href="/auth/google">Sign In With Google</a> 
-          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
+          <a href="/auth/google">Sign In With Google</a>
+          <a href="/api/history">History Page</a>
+          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
         </span>
-        {Page}
+        <Search getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>
+        <SearchHistory/>
       </div>
     )
   }
 }
-
 
 module.exports = App;

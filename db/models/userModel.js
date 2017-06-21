@@ -30,8 +30,14 @@ module.exports.getHistory = function(user) {
     context: this,
     asArray: true
   }).then((data) => {
+    var historyObj = data[0];
     console.log('Returning data.history: ', data[0]);
-    return data[0];
+    var arr = [];
+    for ( var key in historyObj ) {
+      arr.push(historyObj[key]);
+    }
+    console.log('RETURNING: ', arr);
+    return arr; 
   }).catch((error) => {
     console.log('Error retrieving history: ', error);
   });

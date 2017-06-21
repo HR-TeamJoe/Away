@@ -60,7 +60,7 @@ app.use('/api', router);
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-app.get('/auth/google/callback', 
+app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }), //HAVE TO CHANGE THIS REDIRECT URL
   function(req, res) {
     // Successful authentication, redirect home.

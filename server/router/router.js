@@ -6,6 +6,7 @@ router.post('/search', util.sendSearchResponse);
 
 router.get('/history', (req, res) => {
   var user = req.session.passport.user;
+
   User.getHistory(user)
     .then((data) => {
       res.status(200).send(data);
