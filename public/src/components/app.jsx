@@ -75,7 +75,7 @@ class App extends React.Component {
           <a href="/api/history">History Page</a>
           <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
         </span>
-        {Page}
+        {Pages}
       </div>
     )
   }
