@@ -29,7 +29,7 @@ class DestinationBox extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.incrementVisits()}>{this.props.destination.city.city}</button>
+        <button className="destinationButton" onClick={() => this.incrementVisits()}>{this.props.destination.city.city}</button>
       </div>
     )
   }

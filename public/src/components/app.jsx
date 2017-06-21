@@ -21,7 +21,7 @@ class App extends React.Component {
       results: [],
       isLoggedIn: false,
       user: {},
-      sentSearch: false
+      sentSearch: true
     }
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);
