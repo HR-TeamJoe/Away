@@ -7,8 +7,8 @@ var testSummary = `New York City comprises 5 boroughs sitting where the Hudson R
 //destination.city.summary
 
 var ResultTabs = (props) => (
-  <div className="row">
-    <Tabs >
+  <div className="row center-xs">
+    <Tabs className="start-xs col-xs-11 tabPadding">
       <TabList>
         {props.destinations.map((destination, idx) => {
           return <Tab key={idx}>{destination.city.city}</Tab>;
@@ -17,29 +17,29 @@ var ResultTabs = (props) => (
       {props.destinations.map((destination, idx) => {
         return (
           <TabPanel key={idx}>
-          <div className="resultsListSummary">
-            <div className="resultsListSummaryHeader">Overview</div>
-            <div className="resultsListSummaryBody">{destination.city.summary}</div>
-          </div>
-          <span className="resultsList tourism">
-            <h3 className="resultsListHeader">Experiences</h3>
-            {destination.tourism.results.map((location, locIdx) => {
-              return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>
-          <span className="resultsList hotels">
-            <h3 className="resultsListHeader">Hotels</h3>
-            {destination.hotels.results.map((location, locIdx) => {
-              return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>
-          <span className="resultsList restaurants">
-            <h3 className="resultsListHeader">Restaurants</h3>
-            {destination.restaurants.results.map((location, locIdx) => {
-              return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
-            })}
-          </span>          
-        </TabPanel> 
+            <div className="resultsListSummary">
+              <div className="resultsListSummaryHeader">Overview</div>
+              <div className="resultsListSummaryBody">{destination.city.summary}</div>
+            </div>
+            <span className="resultsList tourism">
+              <h3 className="resultsListHeader">Experiences</h3>
+              {destination.tourism.results.map((location, locIdx) => {
+                return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>
+            <span className="resultsList hotels">
+              <h3 className="resultsListHeader">Hotels</h3>
+              {destination.hotels.results.map((location, locIdx) => {
+                return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>
+            <span className="resultsList restaurants">
+              <h3 className="resultsListHeader">Restaurants</h3>
+              {destination.restaurants.results.map((location, locIdx) => {
+                return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
+              })}
+            </span>          
+          </TabPanel> 
         )
       })}
     </Tabs>

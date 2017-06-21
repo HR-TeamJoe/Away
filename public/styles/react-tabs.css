@@ -7,7 +7,8 @@
 .react-tabs__tab {
   background: #cccccc;
   display: inline-block;
-  border: 1px solid transparent;
+  width: 20%;
+  border: 1px solid grey;
   border-bottom: none;
   bottom: -1px;
   position: relative;
@@ -29,7 +30,7 @@
   display: none;
   padding: 5px;
   background: whitesmoke;
-  height: 30em;
+  height: 100%;
 }
 
 .react-tabs__tab-panel--selected {

@@ -49,7 +49,6 @@ select {
   line-height:1;
   font-size:20px;
   outline: none;
-
   border: none;
   border-bottom: 1px solid black;
   border-radius: none;
@@ -127,4 +126,9 @@ button {
 
 .restaurants {
   float: right;
+}
+
+.tabPadding {
+  padding-right: 0;
+  padding-left: 0;
 }
