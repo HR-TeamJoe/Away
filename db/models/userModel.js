@@ -30,8 +30,14 @@ module.exports.getHistory = function(user) {
     context: this,
     asArray: true
   }).then((data) => {
+    var historyObj = data[0];
     console.log('Returning data.history: ', data[0]);
-    return data[0];
+    var arr = [];
+    for ( var key in historyObj ) {
+      arr.push(historyObj[key]);
+    }
+    console.log('RETURNING: ', arr);
+    return arr; 
   }).catch((error) => {
     console.log('Error retrieving history: ', error);
   });
@@ -43,7 +49,7 @@ module.exports.getHistory = function(user) {
       //Update db with new history
 module.exports.addToHistory = function(cityData, user, searchTerms) {
   var dbKey = Object.keys(user)[0]; //The firebase hash/key for this user
-  
+
   db.fetch(`users/${dbKey}`, {context: this})
     .then((user) => {
       var history = user.history ? user.history.history : [];
@@ -61,7 +67,7 @@ module.exports.addToHistory = function(cityData, user, searchTerms) {
       console.log('history to send:', historyToSend);
       return db.post(`users/${dbKey}/history`, {
         data: { history: historyToSend }
-      });     
+      });
     }).then(() => {
         console.log('Updated history');
     }).catch((error) => {
@@ -103,8 +109,3 @@ var addUser = (googleProfile) => {
     res.status(500).send('Error adding user. Error: ', err);
   });
 };
-
-
-
-
-

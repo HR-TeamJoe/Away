@@ -9,6 +9,7 @@ import DestinationsList from './resultBoxes.jsx';
 import Nav from './nav.jsx';
 import Search from './search.jsx';
 import Results from './results.jsx';
+import SearchHistory from './userSearchHistory.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends React.Component {
       sentSearch: false
     }
     console.log(moment());
+    console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -92,21 +94,10 @@ class App extends React.Component {
 
     return (
       <div>
-<<<<<<< HEAD
-        <span className="navSpan">
-          <form action="/auth/google">
-            <input type="submit" value="Sign In With Google"/>
-          </form>
-          <form onSubmit={this.logout.bind(this)}>
-            <input type="submit" value="Log out"/>
-          </form>
-          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
-        </span>
-=======
-        <Nav />   
->>>>>>> Styling
+        <Nav />
         {Page}
-        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
+        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
+        <a href="/api/history">History Page</a>
       </div>
     )
   }
