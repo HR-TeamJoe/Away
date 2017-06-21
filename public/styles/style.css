@@ -82,3 +82,49 @@ button {
   font-size: 32px;
 }
 
+.resultsListSummary {
+   margin: 5px 5px 1em 5px;
+}
+
+.resultsListSummaryHeader {
+  text-decoration: underline black;
+  margin: 0 0 5px 0; 
+}
+
+.resultsListHeader {
+  /*margin: 3px;*/
+  text-decoration: underline black;
+  margin: 0 0 5px 0;
+}
+
+.resultsList {
+  width: 33%;
+  padding: 3px;
+  height: 100%;
+}
+
+.resultsListItem, .resultsListSummaryBody {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.resultsListItem a:link {
+  color: black;
+  text-decoration: none;
+}
+
+.resultsListItem a:visited {
+  color: black;
+}
+
+.tourism {
+  float: left;
+}
+
+.hotels {
+  float: right;
+}
+
+.restaurants {
+  float: right;
+}
