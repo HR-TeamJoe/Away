@@ -1,10 +1,11 @@
-var router = require('express').Router();
-var util = require('../utility.js');
+var apiRouter = require('express').Router();
+var api = require('../searchApi.js');
 var User = require('../../db/models/userModel.js');
 
-router.post('/search', util.sendSearchResponse);
+// Endpoints for /api
+apiRouter.post('/search', api.sendSearchResponse);
 
-router.get('/history', (req, res) => {
+apiRouter.get('/history', (req, res) => {
   var user = req.session.passport.user;
   User.getHistory(user)
     .then((data) => {
@@ -16,4 +17,4 @@ router.get('/history', (req, res) => {
     })
 });
 
-module.exports = router;
+module.exports = apiRouter;

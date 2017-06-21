@@ -2,12 +2,12 @@ var Rebase = require('re-base');
 var firebase = require('firebase');
 // var app;
 
-console.log('PROCESS.ENV IS: ', process.env);
-console.log('firebaseAPI_KEY is: ', process.env.firebaseAPI_KEY);
+// console.log('PROCESS.ENV IS: ', process.env);
+// console.log('firebaseAPI_KEY is: ', process.env.firebaseAPI_KEY);
 
 var API_KEY = 'AIzaSyC1nsBCq-D1-I3gysxeWUDfRnOGIBQNeU8';
 // var API_KEY = process.env.FIREBASE_API_KEY;
-console.log('API_KEY is now: ', API_KEY);
+// console.log('API_KEY is now: ', API_KEY);
 
 // if ( API_KEY ) {
 var app = firebase.initializeApp({
