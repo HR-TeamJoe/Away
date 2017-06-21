@@ -1,4 +1,4 @@
-var cityModel = require('../db/models/cityModel.js'); 
+var cityModel = require('../db/models/cityModel.js');
 var axios = require('axios');
 var User = require('../db/models/userModel.js');
 var { darkSkyApi, googlePlacesApiKey } = require('./config.js');
@@ -28,8 +28,8 @@ var sendSearchResponse = (req, res) => {
     .then((allCitiesData) => {
       res.status(200).send(allCitiesData);
       if ( req.session.passport ) { //If logged in, save search
-        User.addToHistory(allCitiesData, req.session.passport.user, req.body);  
-      }  
+        User.addToHistory(allCitiesData, req.session.passport.user, req.body);
+      }
     })
     .catch((err) => {
       console.log('Search error: ', err);
@@ -41,7 +41,7 @@ var getDarkSkyData = (req, res) => {
   var { startDate } = req.body;
 
   //Convert requested startDate to one year earlier
-  //With paid api access we would access several years' 
+  //With paid api access we would access several years'
   //weather info and average the results
   var yearAgoUnixTime = getYearAgoUnixTime(startDate);
   var citiesFromDb;
@@ -89,7 +89,7 @@ var compareCityTemps = (darkSkyResponseObj) => {
   });
 
   //Sort results by number of visits, descending.
-  results = results.sort(function(a, b) { 
+  results = results.sort(function(a, b) {
     return a.visits - b.visits;
   });
 
