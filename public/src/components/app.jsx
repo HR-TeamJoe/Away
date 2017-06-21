@@ -89,7 +89,7 @@ class App extends React.Component {
     if ( !this.state.sentSearch ) {
       Page = <Search getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results results={this.state.results}/>;
+      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
     }
 
     return (
