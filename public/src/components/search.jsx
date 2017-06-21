@@ -10,19 +10,20 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <h3>I would like to go somewhere...</h3>
-        <div>
-          <span>
-            <TempDropdown className="temperature" options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.props.changeTemp} temp={this.props.temp}/>
-          </span>        
-          <h3>around</h3>          
-          <span>
-            <Calendar startDate={this.props.startDate} changeDate={this.props.changeDate}/>
-          </span>
+      <div className='row center-xs middle-xs search-container'>
+        <div className='col xs-8 search'>
           <form>
-            <button className="searchbutton" onClick={(e) => this.props.getCityResults(e)}>Go!</button>
+            <h3>I would like to go somewhere</h3>
+            <div className='row middle-xs center-xs'>
+              <TempDropdown className='col-xs-3' options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.props.changeTemp} temp={this.props.temp}/>
+              <h3 className='col-xs-3'>around</h3>
+              <Calendar startDate={this.props.startDate} changeDate={this.props.changeDate}/>
+            </div>
+            
+            <button onClick={(e) => this.props.getCityResults(e)}>Go!</button>
           </form>
         </div>
+      </div>
       </div>
     )
   }

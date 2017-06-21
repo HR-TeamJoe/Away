@@ -5,8 +5,10 @@ import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
-import Results from './results.jsx';
+
+import Nav from './nav.jsx';
 import Search from './search.jsx';
+import Results from './results.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -90,6 +92,7 @@ class App extends React.Component {
 
     return (
       <div>
+<<<<<<< HEAD
         <span className="navSpan">
           <form action="/auth/google">
             <input type="submit" value="Sign In With Google"/>
@@ -99,11 +102,14 @@ class App extends React.Component {
           </form>
           <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
         </span>
+=======
+        <Nav />   
+>>>>>>> Styling
         {Page}
+        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
       </div>
     )
   }
 }
-
 
 module.exports = App;
