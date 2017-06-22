@@ -91,19 +91,30 @@ class App extends React.Component {
     })
   }
 
-  getCityResults(e) {
+  doHistoricalSearch(e, searchEntry) {
+    this.setState({
+      startDate: searchEntry.searchDate,
+      temp: searchEntry.searchTemp,
+    })
+
+    setTimeout(() => (this.getCityResults(e, false)), 1000);
+  }
+
+  getCityResults(e, shouldSave) {
     e.preventDefault();
     console.log(this.state.interests);
     axios.post('/api/search', {
       startDate: this.state.startDate,
       temp: this.state.temp,
       interests: this.state.interests,
-      budget: this.state.budget
+      budget: this.state.budget,
+      shouldSave: shouldSave
     })
       .then((res) => {
         this.setState({
           sentSearch: true,
-          results: res.data
+          results: res.data,
+          profileClicked: false
         })
         console.log('Data received: ', JSON.stringify(res.data));
         return res.data
@@ -131,7 +142,7 @@ class App extends React.Component {
   render() {
     var Page = null;
     if ( this.state.profileClicked ) {
-      Page = <UserSearchHistory />
+      Page = <UserSearchHistory doHistoricalSearch={this.doHistoricalSearch.bind(this)} />
     } else if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {

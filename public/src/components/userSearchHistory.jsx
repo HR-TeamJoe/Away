@@ -43,7 +43,7 @@ class SearchHistory extends React.Component {
         <div>
           {
             this.state.searchHistory.map((searchEntry) =>
-              <UserSearchHistoryEntry searchEntry={searchEntry} />
+              <UserSearchHistoryEntry doHistoricalSearch={this.props.doHistoricalSearch} searchEntry={searchEntry} />
             )
           }
         </div>
