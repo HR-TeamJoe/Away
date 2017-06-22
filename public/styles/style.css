@@ -112,6 +112,10 @@ button {
   min-width: 5em;
 }
 
+.button-clicked {
+  background-color: #C3734B;
+}
+
 .destinationButton {
 }
 
