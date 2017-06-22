@@ -1,7 +1,6 @@
 import React from 'react'
 
 var TempDropdown = (props) => (
-	<div>
 		<select onChange={props.changeTemp} value={props.temp}>
 			{
 				props.options.map((option, i) => {
@@ -11,7 +10,6 @@ var TempDropdown = (props) => (
 				})
 			}
 		</select>
-	</div>
 )
 
 // TempDropdown.propTypes: {

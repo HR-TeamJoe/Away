@@ -43,17 +43,28 @@ body {
 }
 
 select {
-  width: 100px;
-  padding:12px;
-  margin-top:8px;
+  width: 150px;
+  padding: 3px 12px;
+  /*margin-top:8px;*/
+  margin: 10px;
   line-height:1;
   font-size:20px;
   outline: none;
   border: none;
   border-bottom: 1px solid black;
-  border-radius: none;
+  /*border-radius: none;*/
+  -webkit-border-radius: 0px;
+  -webkit-appearance: none;
   text-align: center;
-  background-color: none;
+  /*background: none;*/
+  background: rgba(255,255,255,0.9);
+}
+
+.react-datepicker__input-container input {
+  font-size: 20px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px;
+  width: 150px;
 }
 
 button {
@@ -137,6 +148,9 @@ button {
   border-radius: 50%;
 }
 
+/*.react-datepicker input {
+  background: red;
+}*/
 .userName{
   color: black;
   font-size: 1.3em;
