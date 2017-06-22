@@ -3,9 +3,9 @@ var axios = require('axios');
 var User = require('../db/models/userModel.js');
 var { darkSkyApi, googlePlacesApiKey } = require('./config.js');
 const darkSkyUrl = `https://api.darksky.net/forecast/${darkSkyApi}/`
-const googlePlacesDestinationsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+destinations+in+TARGET&key=${googlePlacesApiKey}`;
-const googlePlacesRestaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+restaurants+in+TARGET&key=${googlePlacesApiKey}`;
-const googlePlacesHotelsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top+hotels+in+TARGET&key=${googlePlacesApiKey}`;
+const googlePlacesDestinationsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=INTERESTS+in+TARGET&key=${googlePlacesApiKey}`;
+const googlePlacesRestaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=BUDGET+restaurants+in+TARGET&key=${googlePlacesApiKey}`;
+const googlePlacesHotelsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=BUDGET+hotels+in+TARGET&key=${googlePlacesApiKey}`;
 const regex = /[^a-zA-Z]+/g;
 const tempDefinitions = {
   hot: 90,
@@ -14,6 +14,12 @@ const tempDefinitions = {
   cold: 45,
   freezing: 30
 };
+const budgetDefinitions = {
+  'college student': 'cheap',
+  'so-so': 'medium+budget',
+  'private jet': 'top'
+}
+var interests, budget;
 
 //Receives desired temperature and date from landing page
 //Pull all cities from db
@@ -22,6 +28,12 @@ const tempDefinitions = {
       //Call util.compareTemps with results of all get requests
 var sendSearchResponse = (req, res) => {
   console.log('Entering sendSearchResponse where req.body is: ', req.body);
+
+  //Parse out the interests, if any. If none, set interests to 'destinations'
+  var encodedInterests = req.body.interests.replace(regex, '+');
+  interests = encodedInterests === '' ? 'destinations' : encodedInterests;
+  budget = budgetDefinitions[req.body.budget];
+
   getDarkSkyData(req, res)
     .then(compareCityTemps)
     .then(getGoogleData)
@@ -114,7 +126,10 @@ var getGoogleData = (topCities) => {
 var getTourismData = (topCities) => {
   var tourismDataPromises = topCities.map((cityObj) => {
     var cityString = cityObj.city.replace(regex,'+');
-    var searchString = googlePlacesDestinationsUrl.replace('TARGET', cityString);
+    var searchString = googlePlacesDestinationsUrl
+                        .replace('TARGET', cityString)
+                        .replace('INTERESTS', interests);
+    console.log(searchString);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => resolve({city: cityObj, tourism: results.data}))
@@ -130,7 +145,9 @@ var getTourismData = (topCities) => {
 var getHotelsData = (arrayOfGoogleData) => {
   var hotelsDataPromises = arrayOfGoogleData.map((cityObj) => {
     var cityString = cityObj.city.city.replace(regex,'+');
-    var searchString = googlePlacesHotelsUrl.replace('TARGET', cityString);
+    var searchString = googlePlacesHotelsUrl
+                        .replace('TARGET', cityString)
+                        .replace('BUDGET', budget);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => {
@@ -149,7 +166,9 @@ var getHotelsData = (arrayOfGoogleData) => {
 var getRestaurantsData = (arrayOfGoogleData) => {
   var restaurantsDataPromises = arrayOfGoogleData.map((cityObj) => {
     var cityString = cityObj.city.city.replace(regex,'+');
-    var searchString = googlePlacesRestaurantsUrl.replace('TARGET', cityString);
+    var searchString = googlePlacesRestaurantsUrl
+                        .replace('TARGET', cityString)
+                        .replace('BUDGET', budget);
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => {

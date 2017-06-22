@@ -5,7 +5,6 @@ import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
-
 import Nav from './nav.jsx';
 import Search from './search.jsx';
 import Results from './results.jsx';
@@ -21,8 +20,11 @@ class App extends React.Component {
       results: [],
       isLoggedIn: false,
       user: {},
+      interests: '',
+      budget: 'college student',
       sentSearch: false
     }
+
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
@@ -46,10 +48,24 @@ class App extends React.Component {
       });
   }
 
+  changeBudget(e) {
+    console.log(e.target.value);
+    this.setState({
+      budget: e.target.value
+    });
+    setTimeout(() => {
+      console.log('budget is now: ', this.state.budget);
+    }, 1000)
+  }
+
   changeTemp(e) {
+    console.log(e.target.value);
     this.setState({
       temp: e.target.value
     });
+    setTimeout(() => {
+      console.log('temp is now: ', this.state.temp);
+    }, 1000)
   }
 
   changeDate(date) {
@@ -58,11 +74,21 @@ class App extends React.Component {
     });
   }
 
+  changeInterests(e) {
+    console.log(e.target.value);
+    this.setState({
+      interests: e.target.value
+    });
+  }
+
   getCityResults(e) {
     e.preventDefault();
+    console.log(this.state.interests);
     axios.post('/api/search', {
       startDate: this.state.startDate,
-      temp: this.state.temp
+      temp: this.state.temp,
+      interests: this.state.interests,
+      budget: this.state.budget
     })
       .then((res) => {
         this.setState({
@@ -87,7 +113,7 @@ class App extends React.Component {
   render() {
     var Page = null;
     if ( !this.state.sentSearch ) {
-      Page = <Search getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
+      Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
       Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
     }

@@ -7,7 +7,6 @@ class Nav extends React.Component {
 
 	render() {
     var login = null;
-    console.log('aefa',this.props);
     if(this.props.isLoggedIn){
       login = <div id='google-sign-in'><a href='/api/history'><img className="profileImg" src={this.props.user.photo}/><span className="userName">{this.props.user.displayName}</span></a></div>
     }else {
