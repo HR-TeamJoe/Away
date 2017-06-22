@@ -8,3 +8,4 @@ googlePlacesConfig.js
 googleAuthConfig.js
 /server/apiKeys.js
 dummy.js
+package-lock.json
