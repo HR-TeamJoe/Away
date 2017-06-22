@@ -7,7 +7,8 @@
 .react-tabs__tab {
   background: #cccccc;
   display: inline-block;
-  border: 1px solid transparent;
+  width: 20%;
+  border: 1px solid grey;
   border-bottom: none;
   bottom: -1px;
   position: relative;
@@ -15,6 +16,7 @@
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 5px 5px 0 0;
+  font-size: 1.25vw;
 }
 
 .react-tabs__tab--selected {
@@ -29,11 +31,16 @@
   display: none;
   padding: 5px;
   background: whitesmoke;
-  height: 30em;
+  height: auto;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: black;
+  margin: 0 0 1em 0;
 }
 
 .react-tabs__tab-panel--selected {
   display: block;
+  overflow: auto
 }
 
 .react-tabs__tab--disabled {

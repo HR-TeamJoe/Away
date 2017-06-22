@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'; //hardcoded in styles/calendar.css
+// import 'react-datepicker/dist/react-datepicker.css'; //hardcoded in styles/calendar.css
 
 var Calendar = (props) =>(
     <DatePicker

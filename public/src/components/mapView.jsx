@@ -27,20 +27,20 @@ class MapView extends React.Component {
     });
 
 		return (
-			<div>
-      <div className='row center-xs map'>
-				<Map className='col-xs-10'
+			
+      <div className="row center-xs map">
+				<Map className="col-xs-10"
           ref={m => { this.leafletMap = m; }}
 					center={center}
 					zoom={zoom}
-          style={{height: "100vh"}}>
+          style={{height: "50vh"}}>
 					<TileLayer
 						url={url}
 						attribution="<attribution>" />
 					{Markers}
 				</Map>
 			</div>
-      </div>
+      
 		)
 	}
 }
