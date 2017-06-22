@@ -16,14 +16,16 @@ class Nav extends React.Component {
 
 		return (
 			<div>
-			<div className='row middle-xs between-xs nav'>
-					<div className='col-xs-2 start-xs'>
-						<img src='../../assets/Away_logo.svg' alt='Awayyy'/>
-					</div>
-          <div className='col-xs-2 end-xs'>
-            {login}
-          </div>
-      </div>
+  			<div className='row middle-xs between-xs nav'>
+  					<div className='col-xs-2 start-xs'>
+              <a href="/">
+  						  <img src='../../assets/Away_logo.svg' alt='Awayyy'/>
+              </a>
+  					</div>
+            <div className='col-xs-2 end-xs'>
+              {login}
+            </div>
+        </div>
 			</div>
 		)
 	}

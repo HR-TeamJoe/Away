@@ -17,11 +17,11 @@ class App extends React.Component {
 
     this.state = {
       startDate: moment(),
-      temp: 'warm   -   75°',
+      temp: 'warm',
       results: [],
       isLoggedIn: false,
       user: {},
-      sentSearch: true
+      sentSearch: false
     }
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);

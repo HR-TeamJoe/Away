@@ -15,7 +15,7 @@ class Search extends React.Component {
             <form>
               <h3>I would like to go somewhere</h3>
               <div className='row middle-xs center-xs'>
-                <TempDropdown options={['hot', 'warm   -   75°', 'crisp', 'cold', 'freezing']} changeTemp={this.props.changeTemp} temp={this.props.temp}/>
+                <TempDropdown options={['hot', 'warm', 'crisp', 'cold', 'freezing']} changeTemp={this.props.changeTemp} temp={this.props.temp}/>
                 <h3 >around</h3>
                 <Calendar startDate={this.props.startDate} changeDate={this.props.changeDate}/>
               </div>
