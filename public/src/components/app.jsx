@@ -21,7 +21,7 @@ class App extends React.Component {
       isLoggedIn: false,
       user: {},
       interests: '',
-      budget: 'moderate',
+      budget: 'college student',
       sentSearch: false
     }
 
