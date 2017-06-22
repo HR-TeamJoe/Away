@@ -13,12 +13,14 @@ class Results extends React.Component {
   
   render() {
     return (
+    <div className="results-container">
       <div className="results">
         <ResultsSummary temp={this.props.temp} date={this.props.date}/>
         <DestinationsList destinations={testArray}/>
         <MapView destinations={testArray}/>
         <ResultTabs destinations={testArray}/>
       </div>
+    </div>
     )
  } 
 }
