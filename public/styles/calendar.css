@@ -43,14 +43,15 @@
     border-top-color: #aeaeae; }
 
 .react-datepicker {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 0.8rem;
   background-color: #fff;
   color: #000;
   border: 1px solid #aeaeae;
   border-radius: 0.3rem;
   display: inline-block;
-  position: relative; }
+  position: relative; 
+}
 
 .react-datepicker__triangle {
   position: absolute;
@@ -184,7 +185,23 @@
 
 .react-datepicker__input-container {
   position: relative;
-  display: inline-block; }
+  display: inline-block; 
+}
+
+
+/* CUSTOM STYLING */
+
+
+/*.react-datepicker__input-container input {
+  background-color: red;
+  font-size: 1em;
+  text-align: center;
+  
+}*/
+
+
+/* CUSTOM STYLING */
+
 
 .react-datepicker__year-read-view,
 .react-datepicker__month-read-view {

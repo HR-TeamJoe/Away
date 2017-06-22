@@ -1,7 +1,8 @@
 var express = require('express');
 var parser = require('body-parser');
 var morgan = require('morgan');
-var router = require('./server/router/router.js');
+var apiRouter = require('./server/router/apiRouter.js');
+var authRouter = require('./server/router/authRouter.js');
 var path = require('path');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -54,20 +55,16 @@ app.use((req, res, next) => {
 
 //ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));
+app.use('/api', apiRouter);
+app.use('/auth', authRouter);
 
-app.use('/api', router);
-
-app.get('/auth/google',
-  passport.authenticate('google', { prompt: 'consent', scope: ['profile'] }));
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { prompt: 'consent', failureRedirect: '/login', }), //HAVE TO CHANGE THIS REDIRECT URL
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
-
+//INIT
 app.set('port', process.env.PORT || 1337);
-app.listen(app.get('port'));
+app.listen(app.get('port'), (err) => {
+  if ( err ) {
+    return console.log('Error starting server: ', err);
+  }
+  console.log("\x1b[36m",'AWAY: Listening on port: ', app.get('port'));
+});
 
 module.exports.app = app;

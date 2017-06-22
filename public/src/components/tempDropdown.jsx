@@ -1,17 +1,15 @@
 import React from 'react'
 
 var TempDropdown = (props) => (
-		<div>
-			<select onChange={props.changeTemp} value={props.temp}>
-				{
-          props.options.map((option, i) => {
-					  return (
-		          <option key={i} value={option}>{option}</option>
-					  )
-				  })
-        }
-			</select>
-		</div>
+		<select onChange={props.changeTemp} value={props.temp}>
+			{
+				props.options.map((option, i) => {
+					return (
+						<option key={i} value={option}>{option}</option>
+					)
+				})
+			}
+		</select>
 )
 
 // TempDropdown.propTypes: {
@@ -19,3 +17,6 @@ var TempDropdown = (props) => (
 // }
 
 export default TempDropdown
+
+
+//<select onChange={props.changeTemp} value={props.temp}>

@@ -5,8 +5,10 @@ import MapView from './mapView.jsx';
 import moment from 'moment';
 import axios from 'axios';
 import DestinationsList from './resultBoxes.jsx';
-import Results from './results.jsx';
+import Nav from './nav.jsx';
 import Search from './search.jsx';
+import Results from './results.jsx';
+import SearchHistory from './userSearchHistory.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,30 +18,77 @@ class App extends React.Component {
       startDate: moment(),
       temp: 'warm',
       results: [],
+      isLoggedIn: false,
+      user: {},
+      interests: '',
+      budget: 'college student',
       sentSearch: false
     }
+
     console.log(moment());
+    console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
 
+  componentWillMount() {
+    axios.get('/auth/verify')
+      .then((res) => {
+        if ( res.data.isLoggedIn ) {
+          this.setState({
+            isLoggedIn: res.data.isLoggedIn,
+            user: res.data.user
+          });
+        } else {
+          this.setState({isLoggedIn: false});
+        }
+
+        console.log('Logged in: ', this.state.isLoggedIn);
+        console.log('User is: ', this.state.user);
+      });
+  }
+
+  changeBudget(e) {
+    console.log(e.target.value);
+    this.setState({
+      budget: e.target.value
+    });
+    setTimeout(() => {
+      console.log('budget is now: ', this.state.budget);
+    }, 1000)
+  }
+
   changeTemp(e) {
+    console.log(e.target.value);
     this.setState({
       temp: e.target.value
-    })
+    });
+    setTimeout(() => {
+      console.log('temp is now: ', this.state.temp);
+    }, 1000)
   }
 
-  changeDate(date){
+  changeDate(date) {
     this.setState({
       startDate: date
-    })
+    });
   }
 
-  getCityResults(e){
+  changeInterests(e) {
+    console.log(e.target.value);
+    this.setState({
+      interests: e.target.value
+    });
+  }
+
+  getCityResults(e) {
     e.preventDefault();
+    console.log(this.state.interests);
     axios.post('/api/search', {
       startDate: this.state.startDate,
-      temp: this.state.temp
+      temp: this.state.temp,
+      interests: this.state.interests,
+      budget: this.state.budget
     })
       .then((res) => {
         this.setState({
@@ -50,32 +99,34 @@ class App extends React.Component {
         return res.data
       }).catch((err) => {
         throw err;
-      })
+      });
   }
 
   showResultsPage() {
     this.setState({'sentSearch': !this.state.sentSearch});
   }
 
+  logout(e) {
+    axios.post('/auth/logout');
+  }
+
   render() {
     var Page = null;
     if ( !this.state.sentSearch ) {
-      Page = <Search getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
+      Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results results={this.state.results}/>;
+      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
     }
 
     return (
       <div>
-        <span className="navSpan">
-          <a href="/auth/google">Sign In With Google</a> 
-          <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>  
-        </span>
+        <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
+        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
+        <a href="/api/history">History Page</a>
       </div>
     )
   }
 }
-
 
 module.exports = App;
