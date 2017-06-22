@@ -2672,7 +2672,7 @@ var testArray = [
     },
     {
         "city": {
-            "city": "Myrtle Beach, South Carolina",
+            "city": "Myrtle Beach, SC",
             "city_id": 9,
             "lat": 33.6891,
             "long": -78.8867,

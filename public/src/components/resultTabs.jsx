@@ -8,7 +8,7 @@ var testSummary = `New York City comprises 5 boroughs sitting where the Hudson R
 
 var ResultTabs = (props) => (
   <div className="row center-xs">
-    <Tabs className="start-xs col-xs-11 tabPadding">
+    <Tabs className="start-xs col-xs-10 tabPadding">
       <TabList>
         {props.destinations.map((destination, idx) => {
           return <Tab key={idx}>{destination.city.city}</Tab>;

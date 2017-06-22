@@ -16,6 +16,7 @@
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 5px 5px 0 0;
+  font-size: 1.25vw;
 }
 
 .react-tabs__tab--selected {
@@ -31,6 +32,9 @@
   padding: 5px;
   background: whitesmoke;
   height: 100%;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: black;
 }
 
 .react-tabs__tab-panel--selected {

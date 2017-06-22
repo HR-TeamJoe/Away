@@ -29,11 +29,11 @@ class MapView extends React.Component {
 		return (
 			
       <div className="row center-xs map">
-				<Map className="col-xs-11"
+				<Map className="col-xs-10"
           ref={m => { this.leafletMap = m; }}
 					center={center}
 					zoom={zoom}
-          style={{height: "60vh"}}>
+          style={{height: "50vh"}}>
 					<TileLayer
 						url={url}
 						attribution="<attribution>" />
