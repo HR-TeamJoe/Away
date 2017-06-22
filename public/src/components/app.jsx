@@ -8,7 +8,7 @@ import DestinationsList from './resultBoxes.jsx';
 import Nav from './nav.jsx';
 import Search from './search.jsx';
 import Results from './results.jsx';
-import SearchHistory from './userSearchHistory.jsx';
+import UserSearchHistory from './userSearchHistory.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +22,8 @@ class App extends React.Component {
       user: {},
       interests: '',
       budget: 'college student',
-      sentSearch: false
+      sentSearch: false,
+      profileClicked: false
     }
 
     console.log(moment());
@@ -110,9 +111,19 @@ class App extends React.Component {
     axios.post('/auth/logout');
   }
 
+  clickProfile() {
+    this.setState({
+      profileClicked: true
+    })
+
+    console.log('Clicked Profile');
+  }
+
   render() {
     var Page = null;
-    if ( !this.state.sentSearch ) {
+    if ( this.state.profileClicked ) {
+      Page = <UserSearchHistory />
+    } else if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
       Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
@@ -120,7 +131,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
+        <Nav clickProfile={this.clickProfile.bind(this)} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
         <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
         <a href="/api/history">History Page</a>
