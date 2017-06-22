@@ -94,7 +94,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Nav />
+        <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
         <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
         <a href="/api/history">History Page</a>

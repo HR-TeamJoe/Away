@@ -16,7 +16,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  direction: column; 
+  direction: column;
 }*/
 
 .nav {
@@ -131,4 +131,17 @@ button {
 .tabPadding {
   padding-right: 0;
   padding-left: 0;
+}
+
+.profileImg {
+  border-radius: 50%;
+}
+
+.userName{
+  color: black;
+  font-size: 1.3em;
+}
+
+#google-sign-in, a {
+  text-decoration: none;
 }
