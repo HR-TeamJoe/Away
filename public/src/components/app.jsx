@@ -23,13 +23,15 @@ class App extends React.Component {
       interests: '',
       budget: 'college student',
       sentSearch: false,
-      profileClicked: false
+      profileClicked: false,
+      selectedCity: ''
     }
 
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    // this.changeCity = this.changeCity.bind(this);
   }
 
   componentWillMount() {
@@ -82,6 +84,13 @@ class App extends React.Component {
     });
   }
 
+  changeCity(city) {
+    console.log('new city is: ', city.target.value)
+    this.setState({
+      selectedCity: city.target.value
+    })
+  }
+
   getCityResults(e) {
     e.preventDefault();
     console.log(this.state.interests);
@@ -126,7 +135,7 @@ class App extends React.Component {
     } else if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
+      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results} changeCity={this.changeCity.bind(this)} selectedCity={this.state.selectedCity}/>;
     }
 
     return (
