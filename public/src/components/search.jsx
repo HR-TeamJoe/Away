@@ -12,7 +12,7 @@ class Search extends React.Component {
     return (
       <div>
         <div className='row center-xs middle-xs search-container'>
-          <div className='col-xs-7 search'>
+          <div className='col-xs-9 search'>
             <form>
               <h3>I would like to go somewhere</h3>
               <div className='row middle-xs center-xs'>
@@ -22,7 +22,7 @@ class Search extends React.Component {
                 <h3>on a</h3>
                 <BudgetDropdown options={['thrifty', 'moderate', 'carefree']} changeBudget={this.props.changeBudget} budget={this.props.budget}/>
                 <h3>budget, and I am interested in</h3>
-                <input type="text" onChange={(e) => this.props.changeInterests(e)} placeholder="anything" />.
+                <input className="interests" type="text" onChange={(e) => this.props.changeInterests(e)} placeholder="anything" />
               </div>          
               <button onClick={(e) => this.props.getCityResults(e)}>Go!</button>
             </form>

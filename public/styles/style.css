@@ -43,7 +43,7 @@ body {
 }
 
 .search {
-  padding: 100px;
+  padding: 75px;
   background-color: rgba(255,255,255,0.9);
   border: 5px solid #000;
   font-size: 1em;
@@ -55,12 +55,12 @@ body {
 }
 
 select {
-  width: 160px;
+  width: 200px;
   padding: 3px 12px;
   /*margin-top:8px;*/
   margin: 10px;
   line-height:1;
-  font-size:20px;
+  font-size: 26px;
   outline: none;
   border: none;
   border-bottom: 1px solid black;
@@ -77,18 +77,27 @@ select {
   font-size: 20px;
   background: rgba(255,255,255,0.9);
   margin: 10px;
-  width: 160px;
+  width: 200px;
   text-align: center;
 }
 
 input[type=text] {
   font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
+  font-size: 26px;
   background: rgba(255,255,255,0.9);
   margin: 10px;
-  width: 160px;
+  width: 200px;
   text-align: center;
 }
+
+form h3 {
+  margin: 10px 0;
+}
+
+form {
+  font-size: 26px;
+}
+
 
 button {
   background-color: darkslategray;
@@ -99,7 +108,8 @@ button {
   text-align: center;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
+  font-size: 26px;
+  min-width: 5em;
 }
 
 .destinationButton {
@@ -182,3 +192,4 @@ button {
 #google-sign-in, a {
   text-decoration: none;
 }
+
