@@ -81,6 +81,15 @@ select {
   text-align: center;
 }
 
+input[type=text] {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px;
+  width: 150px;
+  text-align: center;
+}
+
 button {
   background-color: darkslategray;
   border: none;

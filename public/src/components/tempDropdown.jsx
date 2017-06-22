@@ -17,3 +17,6 @@ var TempDropdown = (props) => (
 // }
 
 export default TempDropdown
+
+
+//<select onChange={props.changeTemp} value={props.temp}>
