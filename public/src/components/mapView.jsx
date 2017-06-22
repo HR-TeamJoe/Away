@@ -13,7 +13,8 @@ class MapView extends React.Component {
   }
   
   handlePopupClick(destination) {
-    alert('handlePopupClick: ', destination.city.city)
+    // alert('handlePopupClick: ', destination)
+    console.log('handlePopupClick: ', destination.city.city)
   }
 
 	render() {
@@ -21,13 +22,13 @@ class MapView extends React.Component {
 		const Markers = destinations.map(destination => {
       console.log([destination.city.lat, destination.city.long])
       return (
-        <ExtendedMarker position={[destination.city.lat, destination.city.long]} key={destination.city.key}>
+        <Marker position={[destination.city.lat, destination.city.long]} key={destination.city.key}>
         <Popup>
           <div>
-          <span onClick={() => handlePopupClick(destination)}>{destination.city.city}</span>
+          <span onClick={() => this.handlePopupClick(destination)}>{destination.city.city}</span>
           </div>
         </Popup>
-        </ExtendedMarker> 
+        </Marker> 
       )
     });
 

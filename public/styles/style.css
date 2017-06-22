@@ -93,6 +93,10 @@ button {
   font-size: 16px;
 }
 
+.button-clicked {
+  background-color: red;
+}
+
 .destinationButton {
 }
 
@@ -173,3 +177,4 @@ button {
 #google-sign-in, a {
   text-decoration: none;
 }
+
