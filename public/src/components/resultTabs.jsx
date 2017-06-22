@@ -18,12 +18,7 @@ class ResultTabs extends React.Component {
         <Tabs className="start-xs col-xs-10 tab-padding">
           <TabList>
             {this.props.destinations.map((destination, idx) => {
-              if(destination.city.city===this.props.selectedCity) {
-                return <Tab key={idx} className='react-tabs__tab react-tabs__tab--selected'>{destination.city.city}</Tab>
-              } else {
-                return <Tab key={idx}>{destination.city.city}</Tab>
-              }
-              // return <Tab className={this.props.selectedCity===destination.city.city ? 'react-tabs__tab react-tabs__tab--selected' : 'react-tabs__tab'} key={idx}>{destination.city.city}</Tab>;
+              return <Tab key={idx}>{destination.city.city}</Tab>;
             })}
           </TabList>
           {this.props.destinations.map((destination, idx) => {
@@ -65,3 +60,13 @@ class ResultTabs extends React.Component {
 export default ResultTabs;
 
 //{destination.city.summary}
+
+// ====ATTEMPT to link resultTabs with selected city (code should be in TabList map function)====
+// ====ATTEMPT #1==== 
+// return <Tab key={idx} className={this.props.selectedCity===destination.city.city ? 'react-tabs__tab react-tabs__tab--selected' : 'react-tabs__tab'}>{destination.city.city}</Tab>;
+// ====ATTEMPT #2====
+// if(destination.city.city===this.props.selectedCity) {
+//   return <Tab key={idx} className='react-tabs__tab react-tabs__tab--selected'>{destination.city.city}</Tab>
+// } else {
+//   return <Tab key={idx}>{destination.city.city}</Tab>
+// }
