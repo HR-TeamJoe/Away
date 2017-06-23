@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from './calendar.jsx';
 import TempDropdown from './tempDropdown.jsx';
 import BudgetDropdown from './budgetDropdown.jsx';
+import SearchButton from './searchButton.jsx';
 
 class Search extends React.Component {
   constructor(props) {
@@ -23,9 +24,9 @@ class Search extends React.Component {
                 <BudgetDropdown options={['thrifty', 'moderate', 'carefree']} changeBudget={this.props.changeBudget} budget={this.props.budget}/>
                 <h3>budget, and I am interested in</h3>
                 <input className="interests" type="text" onChange={(e) => this.props.changeInterests(e)} placeholder="anything" />
-              </div>          
-              <button onClick={(e) => this.props.getCityResults(e)}>Go!</button>
+              </div>
             </form>
+            <SearchButton getCityResults={this.props.getCityResults}/>          
           </div>
         </div>
       </div>
@@ -34,4 +35,4 @@ class Search extends React.Component {
 }
 
 export default Search;
-
+// <button onClick={(e) => this.props.getCityResults(e)}>Go!</button>

@@ -92,6 +92,7 @@ class App extends React.Component {
   }
 
   getCityResults(e) {
+    console.log('Searching...');
     e.preventDefault();
     console.log(this.state.interests);
     axios.post('/api/search', {
