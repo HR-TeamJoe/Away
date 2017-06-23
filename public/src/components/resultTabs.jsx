@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import BookFlight from './BookFlight.jsx';
 // import 'react-tabs/style/react-tabs.css';
 const googleSearch = `https://www.google.com/#q=`;
 const regex = `/[^a-zA-Z]+/g`
@@ -20,7 +21,8 @@ var ResultTabs = (props) => (
             <div>
               <div className="resultsListSummary">
                 <div className="resultsListSummaryHeader">Overview</div>
-                <div className="resultsListSummaryBody">{destination.city.summary}</div>
+                <span className="resultsListSummaryBody">{destination.city.summary}</span>
+                <BookFlight startDate={props.startDate} destination={destination}/>
               </div>
               <span className="resultsList tourism">
                 <h3 className="resultsListHeader">Experiences</h3>
@@ -47,6 +49,7 @@ var ResultTabs = (props) => (
     </Tabs>
   </div>
 );
+
 
 export default ResultTabs;
 

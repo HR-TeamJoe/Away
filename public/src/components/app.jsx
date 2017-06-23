@@ -69,6 +69,7 @@ class App extends React.Component {
   }
 
   changeDate(date) {
+    console.log('new date: ',date);
     this.setState({
       startDate: date
     });
@@ -115,7 +116,7 @@ class App extends React.Component {
     if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
+      Page = <Results startDate={this.state.startDate} temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
     }
 
     return (
