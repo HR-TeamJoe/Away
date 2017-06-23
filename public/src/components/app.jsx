@@ -71,6 +71,7 @@ class App extends React.Component {
   }
 
   changeDate(date) {
+    console.log('new date: ',date);
     this.setState({
       startDate: date
     });
