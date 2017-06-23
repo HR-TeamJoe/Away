@@ -21,8 +21,10 @@ var ResultTabs = (props) => (
             <div>
               <div className="resultsListSummary">
                 <div className="resultsListSummaryHeader">Overview</div>
-                <span className="resultsListSummaryBody">{destination.city.summary}</span>
-                <BookFlight startDate={props.startDate} destination={destination}/>
+                <span>
+                  <span className="resultsListSummaryBody">{destination.city.summary}</span>
+                  <BookFlight startDate={props.startDate} destination={destination}/>
+                </span>
               </div>
               <span className="resultsList tourism">
                 <h3 className="resultsListHeader">Experiences</h3>

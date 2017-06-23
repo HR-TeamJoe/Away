@@ -27,7 +27,9 @@ class BookFlight extends React.Component {
   render() {
     return (
       <span>
-        <a href={this.state.url}>Book A Flight</a>
+        <a href={this.state.url}>
+          <button className="book-flight">Book A Flight</button>
+        </a>
       </span>
     )
   }
