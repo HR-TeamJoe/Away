@@ -15,8 +15,10 @@ class Results extends React.Component {
     return (
     <div className="results-container">
       <div className="results">
-        
-        <ResultTabs startDate={this.props.startDate} destinations={testArray}/>
+        <ResultsSummary temp={this.props.temp} date={this.props.date}/>
+        <DestinationsList destinations={this.props.results}/>
+        <MapView destinations={this.props.results}/>
+        <ResultTabs startDate={this.props.startDate} destinations={this.props.results}/>
       </div>
     </div>
     )
@@ -27,9 +29,7 @@ export default Results;
 
 
 
-// <ResultsSummary temp={this.props.temp} date={this.props.date}/>
-// <DestinationsList destinations={this.props.results}/>
-// <MapView destinations={this.props.results}/>
+
 
 // <DestinationsList destinations={testArray}/>
 // <MapView destinations={testArray}/>

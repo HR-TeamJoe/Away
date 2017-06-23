@@ -16,6 +16,7 @@ var ResultTabs = (props) => (
         })}
       </TabList>
       {props.destinations.map((destination, idx) => {
+        console.log('A destination is: ', destination);
         return (
           <TabPanel key={idx}>
             <div>

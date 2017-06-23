@@ -1,39 +1,21 @@
 import React from 'react';
 
-class BookFlight extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url: ''
-    }
-  }
-
-  componentWillMount() {
-    var departDate = this.props.startDate.format('YYYY-MM-DD');
-    var returnDate = this.props.startDate.add(7, 'days').format('YYYY-MM-DD');
-    console.log(departDate, returnDate);
-
-  
-
-    // var base = `https://www.google.com/flights/#search;f=JFK,EWR,LGA;t=DESTINATION;d=DEPART;r=RETURN`;
-    var base = `https://www.kayak.com/flights/NYC-DESTINATION/DEPART/RETURN`;
-
-    var targetUrl = base.replace('DESTINATION', this.props.destination.airport)
-                        .replace('DEPART', departDate)
-                        .replace('RETURN', returnDate);
-    this.setState({url: targetUrl});
-  }
-
-  render() {
-    return (
-      <span>
-        <a href={this.state.url}>
-          <button className="book-flight">Book A Flight</button>
-        </a>
-      </span>
-    )
-  }
+const base = `https://www.kayak.com/flights/NYC-DESTINATION/DEPART/RETURN`;
+var buildUrl = (props) => {
+  var departDate = props.startDate.format('YYYY-MM-DD');
+  var returnDate = props.startDate.add(7, 'days').format('YYYY-MM-DD');
+  return base.replace('DESTINATION', props.destination.city.airport)
+              .replace('DEPART', departDate)
+              .replace('RETURN', returnDate);
 }
+
+var BookFlight = (props) => (
+  <span>
+    <a href={buildUrl(props)}>
+      <button className="book-flight">Book A Flight</button>
+    </a>
+  </span>
+)
 
   
 
