@@ -8,17 +8,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-#app {
-}
-
-/*#app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  direction: column;
-}*/
-
 .nav {
   padding: 10px 30px;
   border-bottom: 1px solid black;
@@ -115,7 +104,7 @@ form {
   font-size: 26px;
 }
 
-
+/* BUTTON STYLING */
 button, .search-button {
   background-color: darkslategray;
   border: none;
@@ -131,14 +120,17 @@ button, .search-button {
 }
 
 .search-button {
-  /*padding-top: 20px;
-  padding-bottom: 20px;*/
   padding: 30px;
   min-width: 100px;
   height: 100px;
   width: 100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.search-button:hover {
+  background-color: #477c7c;
+  transition: 0.25s;
 }
 
 .search-button-clicked {
@@ -148,21 +140,19 @@ button, .search-button {
   border-top: 16px solid darkslategray; /* Blue */
   border-bottom: 16px solid darkslategray; /* Blue */
   border-radius: 50%;
-  /*min-width: 120px;*/
-  /*width: 120px;
-  height: 120px;*/
-  animation: spin 2s linear infinite;
+  /*animation: spin 2s linear infinite;*/
+  animation: spin 2s ease-in-out infinite;
   transition: 1s;
+}
+
+.search-button-clicked:hover {
+  background-color: transparent;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-
-
-
 
 .button-clicked {
   background-color: #C3734B;
@@ -248,9 +238,6 @@ button, .search-button {
   border-radius: 50%;
 }
 
-/*.react-datepicker input {
-  background: red;
-}*/
 .userName{
   color: black;
   font-size: 1.3em;
@@ -259,4 +246,3 @@ button, .search-button {
 #google-sign-in, a {
   text-decoration: none;
 }
-
