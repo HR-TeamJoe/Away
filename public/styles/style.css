@@ -141,7 +141,7 @@ button, .search-button {
   border-bottom: 16px solid darkslategray; /* Blue */
   border-radius: 50%;
   /*animation: spin 2s linear infinite;*/
-  animation: spin 2s ease-in-out infinite;
+  animation: spin 1.75s ease-in-out infinite;
   transition: 1s;
 }
 

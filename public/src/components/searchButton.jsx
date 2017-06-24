@@ -22,14 +22,10 @@ class SearchButton extends React.Component {
       isClicked: true,
       classes: 'search-button search-button-clicked'
     });
-    //this.props.getCityResults(e);
+    this.props.getCityResults(e);
   }
 
   render() {
-    // if ( this.state.isClicked ) {
-
-    // }
-
     return (
       <div className={this.state.classes} onClick={this.click.bind(this)}>Go!</div>
     )

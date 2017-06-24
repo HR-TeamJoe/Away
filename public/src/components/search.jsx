@@ -35,4 +35,3 @@ class Search extends React.Component {
 }
 
 export default Search;
-// <button onClick={(e) => this.props.getCityResults(e)}>Go!</button>
