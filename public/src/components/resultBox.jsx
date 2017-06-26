@@ -13,7 +13,7 @@ class DestinationBox extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     db.syncState(`cities/${this.props.destination.city.city_id}/visits`, {
       context: this,
       state: 'visits'
@@ -21,24 +21,30 @@ class DestinationBox extends React.Component {
   }
 
   incrementVisits() {
-    var count = ++this.state.visits;
     this.setState({
-      visits: count
+      visits: this.state.visits + 1
     });
   }
 
   handleClick(e) {
     console.log('resultBox e: ', e);
     this.incrementVisits();
-    this.props.changeCity(e)
+    this.props.changeCity(e);
   }
 
   render() {
+    const classes = this.props.selectedCity === this.props.destination.city.city ? 'button-clicked' : null;
     return (
       <div>
-        <button value={this.props.destination.city.city} className={this.props.selectedCity===this.props.destination.city.city ? 'button-clicked' : null} onClick={this.handleClick}>{this.props.destination.city.city}</button>
+        <button
+          value={this.props.destination.city.city}
+          className={classes}
+          onClick={this.handleClick}
+        >
+          {this.props.destination.city.city}
+        </button>
       </div>
-    )
+    );
   }
 }
 

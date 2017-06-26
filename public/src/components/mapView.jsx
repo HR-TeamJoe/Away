@@ -17,24 +17,25 @@ class MapView extends React.Component {
 
   render() {
     const destinations = this.props.destinations;
-    const Markers = destinations.map((destination) => {
-      return 
-        <Marker position={[destination.city.lat, destination.city.long]} key={destination.city.key}>
-          <Popup>
-            <div>
-              <span
-                role="presentation"
-                onClick={() => this.handlePopupClick(destination)}>
-                {destination.city.city}
-              </span>
-            </div>
-          </Popup>
-        </Marker>   
-    });
+    const Markers = destinations.map(destination =>
+      (<Marker position={[destination.city.lat, destination.city.long]} key={destination.city.key}>
+        <Popup>
+          <div>
+            <span
+              role="presentation"
+              onClick={() => this.handlePopupClick(destination)}
+            >
+              {destination.city.city}
+            </span>
+          </div>
+        </Popup>
+      </Marker>)
+    );
 
     return (
       <div className="row center-xs map">
-        <Map className="col-xs-10"
+        <Map
+          className="col-xs-10"
           center={center}
           zoom={zoom}
           style={{ height: '50vh' }}
