@@ -8,6 +8,7 @@ let googleClientSecret;
 let googlePlacesApiKey;
 let openWeatherApi;
 let googleCallbackUrl;
+let mapboxKey;
 
 if (process.env.darkSkyApi) {
   darkSkyApi = process.env.darkSkyApi;
@@ -16,6 +17,7 @@ if (process.env.darkSkyApi) {
   googlePlacesApiKey = process.env.googlePlacesApiKey;
   openWeatherApi = process.env.openWeatherApi;
   googleCallbackUrl = 'https://hr-away.herokuapp.com/auth/google/callback';
+  mapboxKey = process.env.mapboxKey;
 } else {
   darkSkyApi = keys.darkSkyApi;
   googleClientId = keys.googleClientId;
@@ -23,6 +25,7 @@ if (process.env.darkSkyApi) {
   googlePlacesApiKey = keys.googlePlacesApiKey;
   openWeatherApi = keys.openWeatherApi;
   googleCallbackUrl = keys.googleCallbackUrl;
+  mapboxKey = keys.mapboxKey;
 }
 
 module.exports = {
@@ -31,5 +34,6 @@ module.exports = {
   googlePlacesApiKey,
   googleCallbackUrl,
   darkSkyApi,
-  openWeatherApi
+  openWeatherApi,
+  mapboxKey
 };

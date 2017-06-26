@@ -15,7 +15,7 @@ class Results extends React.Component {
     return (
     <div className="results-container">
       <div className="results">
-        <ResultsSummary temp={this.props.temp} date={this.props.date}/>
+        <ResultsSummary temp={this.props.temp} date={this.props.date} budget={this.props.budget} interests={this.props.interests}/>
         <DestinationsList destinations={this.props.results} changeCity={this.props.changeCity} selectedCity={this.props.selectedCity}/>
         <MapView destinations={this.props.results}/>
         <ResultTabs startDate={this.props.date} destinations={this.props.results} changeCity={this.props.changeCity} selectedCity={this.props.selectedCity}/>
