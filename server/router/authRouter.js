@@ -1,3 +1,5 @@
+// Handle endpoints for /auth in this file
+
 const authRouter = require('express').Router();
 const passport = require('passport');
 
