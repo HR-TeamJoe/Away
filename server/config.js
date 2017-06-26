@@ -1,8 +1,15 @@
-//This creates keys based on whether or not
-//the application is running in a deployed setting
-var darkSkyApi, googleClientId, googleClientSecret, googlePlacesApiKey, openWeatherApi, googleCallbackUrl;
+// This creates keys based on whether or not
+// the application is running in a deployed setting
+const keys = process.env.darkSkyApi ? null : require('./apiKeys.js');
 
-if ( process.env.darkSkyApi ) {
+let darkSkyApi;
+let googleClientId;
+let googleClientSecret;
+let googlePlacesApiKey;
+let openWeatherApi;
+let googleCallbackUrl;
+
+if (process.env.darkSkyApi) {
   darkSkyApi = process.env.darkSkyApi;
   googleClientId = process.env.googleClientId;
   googleClientSecret = process.env.googleClientSecret;
@@ -10,8 +17,7 @@ if ( process.env.darkSkyApi ) {
   openWeatherApi = process.env.openWeatherApi;
   googleCallbackUrl = 'https://hr-away.herokuapp.com/auth/google/callback';
 } else {
-  var keys = require('./apiKeys.js');
-  darkSkyApi = keys.darkSkyApi
+  darkSkyApi = keys.darkSkyApi;
   googleClientId = keys.googleClientId;
   googleClientSecret = keys.googleClientSecret;
   googlePlacesApiKey = keys.googlePlacesApiKey;

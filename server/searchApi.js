@@ -21,11 +21,8 @@ const budgetDefinitions = {
 }
 var interests, budget;
 
-//Receives desired temperature and date from landing page
-//Pull all cities from db
-  //Then map city lat/long into an array of promisified get requests
-    //Then call promise.all(<array of promises>)
-      //Call util.compareTemps with results of all get requests
+//Search request received with terms on req.body: temp, date, budget, interests.
+//Parse the search terms into cleaned up variables, then pass to APIs
 var sendSearchResponse = (req, res) => {
   console.log('Entering sendSearchResponse where req.body is: ', req.body);
 
@@ -39,7 +36,9 @@ var sendSearchResponse = (req, res) => {
     .then(getGoogleData)
     .then((allCitiesData) => {
       res.status(200).send(allCitiesData);
-      if ( req.session.passport ) { //If logged in, save search
+
+      //If logged in, save search
+      if ( req.session.passport ) { 
         User.addToHistory(allCitiesData, req.session.passport.user, req.body);
       }
     })
@@ -49,10 +48,13 @@ var sendSearchResponse = (req, res) => {
     });
 };
 
+//Get weather data for all cities in DB
+//for one year prior to searchd date
+//See var getUrl below for darkSkyApi format.
 var getDarkSkyData = (req, res) => {
   var { startDate } = req.body;
 
-  //Convert requested startDate to one year earlier
+  //Convert requested startDate to one year earlier.
   //With paid api access we would access several years'
   //weather info and average the results
   var yearAgoUnixTime = getYearAgoUnixTime(startDate);
