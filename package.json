@@ -19,6 +19,8 @@
     "express-session": "^1.15.3",
     "firebase": "^4.1.2",
     "leaflet": "^1.0.3",
+    "lodash": "^4.17.4",
+    "lodash.clonedeep": "^4.5.0",
     "moment": "^2.18.1",
     "mongoose": "^4.10.6",
     "morgan": "^1.8.2",
@@ -37,14 +39,21 @@
     "uglify": "^0.1.5",
     "webpack": "^2.6.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0"
+  },
   "scripts": {
     "start": "node app.js",
     "startmon": "nodemon app.js",
     "webpack": "webpack -d --watch",
     "test": "test",
     "heroku-postbuild": "webpack -p",
-    "freshtall": "rm -rf node_modules && rm -rf package-lock.json && npm install"
+    "freshtall": "rm -rf node_modules && rm -rf package-lock.json && npm install",
+    "lint": "./node_modules/.bin/eslint *; exit 0;"
   },
   "repository": {
     "type": "git",

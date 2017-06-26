@@ -1,30 +1,28 @@
-var db =  require('../config.js');
+const db = require('../config.js');
 
-module.exports.addCity = function(city_id, city, lat, long, visits) {
-  db.post(`cities/${city_id}`, {
+module.exports.addCity = (cityId, city, lat, long) => {
+  db.post(`cities/${cityId}`, {
     data: {
-      city_id: city_id,
-      city: city,
-      lat: lat,
-      long: long,
+      cityId,
+      city,
+      lat,
+      long,
       visits: 1
     }
   }).then(() => {
-    console.log('city added',201);
+    console.log('city added', 201);
   }).catch((err) => {
-    throw(err);
-    }
-  )
-}
+    throw (err);
+  });
+};
 
-module.exports.getCity = function() {
-  return db.fetch('/cities', {
+module.exports.getCity = () =>
+  db.fetch('/cities', {
     context: this,
     asArray: true
-  }).then(data => {
+  }).then((data) => {
     console.log('Inside the getCity then block, data is: ', data);
     return data;
-  }).catch(error => {
+  }).catch((error) => {
     console.log(error);
-  })
-}
+  });

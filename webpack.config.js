@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 const SRC_DIR = path.resolve(__dirname, 'public');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
-//move entry point to include css
+
 module.exports = {
   entry: path.resolve(SRC_DIR, 'src/index.jsx'),
   output: {
@@ -13,7 +13,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"production"'
+        NODE_ENV: '"production"'
       }
     })
   ],
@@ -30,7 +30,7 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader'
-      }, 
+      },
       {
         test: /\.css$/,
         loader: 'css-loader',
@@ -42,4 +42,4 @@ module.exports = {
 
     ]
   }
-}
+};
