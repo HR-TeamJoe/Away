@@ -54,7 +54,7 @@ const getDarkSkyData = (req, res) => {
   return cityModel.getCity()
     .then((cities) => {
       citiesFromDb = cities;
-      //map array of city lat/long values into an array of get requests wrapped in promises
+      // map array of city lat/long values into an array of get requests wrapped in promises
       const getPromises = cities.map((city) => {
         const { lat, long } = city;
         const getUrl = `${darkSkyUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
