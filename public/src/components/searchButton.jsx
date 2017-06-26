@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 
 class SearchButton extends React.Component {
   constructor(props) {
@@ -9,11 +8,7 @@ class SearchButton extends React.Component {
       isClicked: false,
       isHovered: false,
       classes: 'search-button'
-    }
-  }
-
-  hover(e) {
-    console.log('hovered: ', e);
+    };
   }
 
   click(e) {
@@ -27,8 +22,14 @@ class SearchButton extends React.Component {
 
   render() {
     return (
-      <div className={this.state.classes} onClick={this.click.bind(this)}>Go!</div>
-    )
+      <div
+        role="button"
+        className={this.state.classes}
+        onClick={this.click.bind(this)}
+      >
+        Go!
+      </div>
+    );
   }
 }
 

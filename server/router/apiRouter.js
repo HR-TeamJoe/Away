@@ -1,13 +1,13 @@
-var apiRouter = require('express').Router();
-var api = require('../searchApi.js');
-var User = require('../../db/models/userModel.js');
+// Handle endpoints for /api in this file
 
-// Endpoints for /api
+const apiRouter = require('express').Router();
+const api = require('../searchApi.js');
+const User = require('../../db/models/userModel.js');
+
 apiRouter.post('/search', api.sendSearchResponse);
 
 apiRouter.get('/history', (req, res) => {
-  var user = req.session.passport.user;
-
+  const user = req.session.passport.user;
   User.getHistory(user)
     .then((data) => {
       res.status(200).send(data);
@@ -15,7 +15,7 @@ apiRouter.get('/history', (req, res) => {
     .catch((error) => {
       res.sendStatus(500);
       console.log('Error getting history: ', error);
-    })
+    });
 });
 
 module.exports = apiRouter;

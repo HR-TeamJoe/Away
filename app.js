@@ -1,70 +1,71 @@
-var express = require('express');
-var parser = require('body-parser');
-var morgan = require('morgan');
-var apiRouter = require('./server/router/apiRouter.js');
-var authRouter = require('./server/router/authRouter.js');
-var path = require('path');
-var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var { googleClientId, googleClientSecret, googleCallbackUrl } = require('./server/config.js');
-var db = require('./db/models/cityModel.js');
-var User = require('./db/models/userModel.js');
+const express = require('express');
+const expressSession = require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true });
+const parser = require('body-parser');
+const parserEncoded = require('body-parser').urlencoded({ extended: true });
+const cookieParser = require('cookie-parser')();
+const morgan = require('morgan')('combined');
+const apiRouter = require('./server/router/apiRouter.js');
+const authRouter = require('./server/router/authRouter.js');
+const configRouter = require('./server/router/configRouter.js');
+const path = require('path');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { googleClientId, googleClientSecret, googleCallbackUrl } = require('./server/config.js');
+const User = require('./db/models/userModel.js');
 
-//Google oauth setup
+// Google oauth setup
 passport.use(new GoogleStrategy({
-    clientID: googleClientId,
-    clientSecret: googleClientSecret,
-    callbackURL: googleCallbackUrl
-  },
-  function(accessToken, refreshToken, profile, cb) {
+  clientID: googleClientId,
+  clientSecret: googleClientSecret,
+  callbackURL: googleCallbackUrl
+},
+  (accessToken, refreshToken, profile, cb) => {
     User.findOrCreate(profile)
-      .then((result) => {
-        return cb(null, result);
-      })
-      .catch((error) => {
-        return cb(error, null);
-      });
+      .then(result => cb(null, result))
+      .catch(error => cb(error, null));
   }
 ));
 
-passport.serializeUser(function(user, cb) {
+passport.serializeUser((user, cb) => {
   cb(null, user);
 });
 
-passport.deserializeUser(function(obj, cb) {
+passport.deserializeUser((obj, cb) => {
   cb(null, obj);
 });
-//End of google oauth setup
+// End of google oauth setup
 
-var app = express();
+const app = express();
 
-//MIDDLEWARE
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
+// MIDDLEWARE
+app.use(morgan);
+app.use(cookieParser);
+app.use(parserEncoded);
 app.use(parser.json());
-app.use(require('express-session')({ secret: 'tonks', resave: true, saveUninitialized: true }));
+app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
-  if ( req.session.passport ) {
+  if (req.session.passport) {
+    console.log(req.session.passport.user);
     console.log('User is Logged In');
   }
   next();
 });
 
-//ROUTING
+// ROUTING
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+app.use('/config', configRouter);
 
-//INIT
+// INIT
 app.set('port', process.env.PORT || 1337);
 app.listen(app.get('port'), (err) => {
-  if ( err ) {
+  if (err) {
     return console.log('Error starting server: ', err);
   }
-  console.log("\x1b[36m",'AWAY: Listening on port: ', app.get('port'));
+  return console.log('\x1b[36m', 'AWAY: Listening on port: ', app.get('port'));
 });
 
 module.exports.app = app;
