@@ -1,10 +1,18 @@
 import React from 'react';
+import moment from 'moment';
 
 const base = `https://www.kayak.com/flights/NYC-DESTINATION/DEPART/RETURN`;
 var buildUrl = (props) => {
-  var departDate = props.startDate.format('YYYY-MM-DD');
-  var returnDate = props.startDate.add(7, 'days').format('YYYY-MM-DD');
-  props.startDate.subtract(7, 'days');
+  var dateForFlight;
+  if ( typeof props.startDate === 'function') {
+    dateForFlight = props.startDate;
+  } else {
+    dateForFlight = moment(props.startDate);
+  }
+
+  var departDate = dateForFlight.format('YYYY-MM-DD');
+  var returnDate = dateForFlight.add(7, 'days').format('YYYY-MM-DD');
+  dateForFlight.subtract(7, 'days');
   return base.replace('DESTINATION', props.destination.city.airport)
               .replace('DEPART', departDate)
               .replace('RETURN', returnDate);
@@ -18,7 +26,7 @@ var BookFlight = (props) => (
   </span>
 )
 
-  
+
 
 export default BookFlight;
 

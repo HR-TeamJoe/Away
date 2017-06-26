@@ -21,25 +21,6 @@ class SearchHistory extends React.Component {
     console.log(this.state.searchHistory.cities);
   }
 
-  // handleSort(clickedColumn) {
-  //   const {column, searchHistory, direction } = this.state
-  //
-  //   if (column !== clickedColumn) {
-  //     this.setState({
-  //       column: clickedColumn,
-  //       searchHistory: _.sortBy(searchHistory, [clickedColumn]),
-  //       direction: 'ascending'
-  //     })
-  //
-  //     return
-  //   }
-  //
-  //   this.setState({
-  //     searchHistory: searchHistory.reverse(),
-  //     direction: direction === 'ascending' ? 'descending' : 'ascending',
-  //   })
-  // }
-
   componentWillMount() {
     this.getHistory();
   }

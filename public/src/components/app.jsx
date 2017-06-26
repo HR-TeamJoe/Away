@@ -98,7 +98,14 @@ class App extends React.Component {
       temp: searchEntry.searchTemp,
     })
 
-    setTimeout(() => (this.getCityResults(e, false)), 1000);
+    console.log(searchEntry);
+
+    var searchInfo = {
+      startDate: searchEntry.searchDate,
+      temp: searchEntry.temp
+    }
+
+    setTimeout(() => (this.getCityResults(e, searchInfo)), 1000);
   }
 
   getCityResults(e, shouldSave) {
@@ -134,7 +141,7 @@ class App extends React.Component {
 
   clickProfile() {
     this.setState({
-      profileClicked: true
+      profileClicked: !this.state.profileClicked
     })
 
     console.log('Clicked Profile');

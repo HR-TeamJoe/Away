@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Table } from 'semantic-ui-react';
+import moment from 'moment';
 
 class UserSearchHistoryEntry extends React.Component {
   constructor(props) {
