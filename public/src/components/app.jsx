@@ -48,7 +48,6 @@ class App extends React.Component {
   getCityResults(e) {
     console.log('Searching...');
     e.preventDefault();
-    console.log(this.state.interests);
     axios.post('/api/search', {
       startDate: this.state.startDate,
       temp: this.state.temp,
@@ -60,7 +59,7 @@ class App extends React.Component {
         sentSearch: true,
         results: res.data
       });
-      console.log('Data received: ', JSON.stringify(res.data));
+      console.log('Data received: ', res.data);
       return res.data;
     }).catch((err) => {
       throw err;

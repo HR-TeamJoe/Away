@@ -1,3 +1,6 @@
+// This is where the search logic happens
+// See Rob with questions
+
 const cityModel = require('../db/models/cityModel.js');
 const axios = require('axios');
 const User = require('../db/models/userModel.js');
@@ -36,13 +39,15 @@ const getYearAgoUnixTime = (date) => {
   const targetDate = new Date(reformattedDate);
   const targetUnixTime = targetDate.getTime() / 1000;
   // The below code uses a bitwise that linter doesn't like
-  // const targetUnixTime = targetDate.getTime() / 1000 | 0;
+  // I'm not entirely sure what that bitwise does, so I commented it
+    // const targetUnixTime = targetDate.getTime() / 1000 | 0;
+
   return targetUnixTime;
 };
 
 // Get weather data for all cities in DB
-// for one year prior to searchd date
-// See var getUrl below for darkSkyApi format.
+// for one year prior to search date
+// See const getUrl below for darkSkyApi url format.
 const getDarkSkyData = (req, res) => {
   const { startDate } = req.body;
   // Convert requested startDate to one year earlier.
@@ -54,7 +59,9 @@ const getDarkSkyData = (req, res) => {
   return cityModel.getCity()
     .then((cities) => {
       citiesFromDb = cities;
-      // map array of city lat/long values into an array of get requests wrapped in promises
+
+      // Map array of city lat/long values into an array
+      // of get requests wrapped in promises
       const getPromises = cities.map((city) => {
         const { lat, long } = city;
         const getUrl = `${darkSkyUrl}${lat},${long},${yearAgoUnixTime}?exclude=currently,flags`;
@@ -84,7 +91,7 @@ const getTourismData = (topCities) => {
     const searchString = googlePlacesDestinationsUrl
                         .replace('TARGET', cityString)
                         .replace('INTERESTS', interests);
-    console.log(searchString);
+
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then(results => resolve({ city: cityObj, tourism: results.data }))
@@ -94,9 +101,8 @@ const getTourismData = (topCities) => {
   return Promise.all(tourismDataPromises);
 };
 
-
 // Second call to Google Places Web API
-// Extend the tourism data results object on line 127 with
+// Extend the tourism data results object with
 // the results from the 'top hotels' search
 const getHotelsData = (arrayOfGoogleData) => {
   const hotelsDataPromises = arrayOfGoogleData.map((cityObj) => {
@@ -104,6 +110,7 @@ const getHotelsData = (arrayOfGoogleData) => {
     const searchString = googlePlacesHotelsUrl
                         .replace('TARGET', cityString)
                         .replace('BUDGET', budget);
+
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => {
@@ -117,7 +124,7 @@ const getHotelsData = (arrayOfGoogleData) => {
 };
 
 // Second call to Google Places Web API
-// Extend the hotels data results object on line 146 with
+// Extend the hotels data results object with
 // the results from the 'top restaurants' search
 const getRestaurantsData = (arrayOfGoogleData) => {
   const restaurantsDataPromises = arrayOfGoogleData.map((cityObj) => {
@@ -125,6 +132,7 @@ const getRestaurantsData = (arrayOfGoogleData) => {
     const searchString = googlePlacesRestaurantsUrl
                         .replace('TARGET', cityString)
                         .replace('BUDGET', budget);
+
     return new Promise((resolve, reject) => {
       axios.get(searchString)
         .then((results) => {
@@ -137,8 +145,8 @@ const getRestaurantsData = (arrayOfGoogleData) => {
   return Promise.all(restaurantsDataPromises);
 };
 
-// For each apiResponse, see if the historical temperature is within
-// the -7 and +8 of the user's target temperature. Return only five results,
+// For each darkSkyApi response, see if the historical temperature is within
+// -7 and +8 of the user's target temperature. Return only five results,
 // sorted by most visits.
 const compareCityTemps = (darkSkyResponseObj) => {
   const { req, citiesFromDb, apiResponses } = darkSkyResponseObj;
@@ -156,15 +164,15 @@ const compareCityTemps = (darkSkyResponseObj) => {
 
   // Sort results by number of visits, descending.
   results = results.sort((a, b) => a.visits - b.visits);
-
   const topFiveResults = results.slice(0, 5);
   return topFiveResults;
 };
 
-// Calls all three google places methods below
+// Calls all three Google Places API methods from above
 // Returns an array of objects
 // Each object contains 1) a city object from the topCities array
-// then additional objects for tourism, hotels, restaurants
+// and 2) additional objects for tourism, hotels, restaurants:
+// { city: {...}, tourism: {...}, hotels: {...}, restaurants: {...} }
 const getGoogleData = topCities =>
   getTourismData(topCities)
     .then(getHotelsData)

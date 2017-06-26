@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import db from '../../../db/config.js';
 
 class DestinationBox extends React.Component {
@@ -7,10 +8,16 @@ class DestinationBox extends React.Component {
 
     this.state = {
       visits: this.props.destination.city.visits,
+      firebaseKey: ''
     };
 
     this.incrementVisits = this.incrementVisits.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get('/config/mapbox')
+      .then(results => this.setState({ firebaseKey: results.data }));
   }
 
   componentDidMount() {
