@@ -72,6 +72,7 @@ class App extends React.Component {
   }
 
   changeDate(date) {
+    console.log('new date: ',date);
     this.setState({
       startDate: date
     });
@@ -91,6 +92,7 @@ class App extends React.Component {
     })
   }
 
+<<<<<<< HEAD
   doHistoricalSearch(e, searchEntry) {
     this.setState({
       startDate: searchEntry.searchDate,
@@ -101,6 +103,10 @@ class App extends React.Component {
   }
 
   getCityResults(e, shouldSave) {
+=======
+  getCityResults(e) {
+    console.log('Searching...');
+>>>>>>> 96c65dd270281a7a19bb9509d7a2e5a96a254676
     e.preventDefault();
     console.log(this.state.interests);
     axios.post('/api/search', {
@@ -153,8 +159,6 @@ class App extends React.Component {
       <div>
         <Nav clickProfile={this.clickProfile.bind(this)} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
-        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
-        <a href="/api/history">History Page</a>
       </div>
     )
   }

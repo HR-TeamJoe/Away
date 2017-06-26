@@ -9,7 +9,16 @@ class Nav extends React.Component {
 	render() {
     var login = null;
     if(this.props.isLoggedIn){
+<<<<<<< HEAD
       login = <div id='google-sign-in' onClick={this.props.clickProfile}><img className="profileImg" src={this.props.user.photo}/><span className="userName">{this.props.user.displayName}</span></div>
+=======
+      login = (<div id='google-sign-in'>
+                <a href='/api/history'>
+                  <img className="profileImg" src={this.props.user.photo}/>
+                  <span className="userName">{this.props.user.displayName}</span>
+                </a>
+              </div>)
+>>>>>>> 96c65dd270281a7a19bb9509d7a2e5a96a254676
     }else {
       login = <div id='google-sign-in'><a href='/auth/google'>Sign in with Google</a></div>;
     }
