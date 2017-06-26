@@ -7,6 +7,8 @@ configRouter.get('/db', (req, res) => {
   res.status(200).send(keys.firebaseKey);
 });
 
+// Not currently used due to syncState issue
+// that is noted in resultBox.jsx
 configRouter.get('/mapbox', (req, res) => {
   res.status(200).send(keys.mapboxKey);
 });
