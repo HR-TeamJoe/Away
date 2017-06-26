@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from './nav.jsx';
 import Search from './search.jsx';
 import Results from './results.jsx';
+import UserSearchHistory from './userSearchHistory.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
       interests: '',
       budget: 'college student',
       sentSearch: false,
+      profileClicked: false,
       selectedCity: ''
     };
 
@@ -107,6 +109,22 @@ class App extends React.Component {
     });
   }
 
+  doHistoricalSearch(e, searchEntry) {
+    this.setState({
+      startDate: searchEntry.searchDate,
+      temp: searchEntry.searchTemp,
+    });
+
+    console.log(searchEntry);
+
+    var searchInfo = {
+      startDate: searchEntry.searchDate,
+      temp: searchEntry.temp
+    }
+
+    setTimeout(() => (this.getCityResults(e, searchInfo)), 1000);
+  }
+
   showResultsPage() {
     this.setState({ sentSearch: !this.state.sentSearch });
   }
@@ -116,22 +134,37 @@ class App extends React.Component {
     axios.post('/auth/logout');
   }
 
+  clickProfile() {
+    this.setState({
+      profileClicked: !this.state.profileClicked
+    });
+
+    console.log('Clicked Profile');
+  }
+
   render() {
     let Page = null;
-    if (!this.state.sentSearch) {
-      Page = 
-        (<Search budget={this.state.budget}
+    if (this.state.profileClicked) {
+      Page =
+        (<UserSearchHistory
+          doHistoricalSearch={this.doHistoricalSearch.bind(this)}
+        />);
+    } else if (!this.state.sentSearch) {
+      Page =
+        (<Search
+          budget={this.state.budget}
           changeBudget={this.changeBudget.bind(this)}
           changeInterests={this.changeInterests.bind(this)}
           getCityResults={this.getCityResults.bind(this)}
           startDate={this.state.startDate}
           changeDate={this.changeDate}
           changeTemp={this.changeTemp.bind(this)}
-          temp={this.state.temp} 
+          temp={this.state.temp}
         />);
     } else if (this.state.sentSearch) {
       Page = 
-        (<Results temp={this.state.temp}
+        (<Results
+          temp={this.state.temp}
           date={this.state.startDate}
           budget={this.state.budget}
           interests={this.state.interests}
@@ -143,7 +176,11 @@ class App extends React.Component {
 
     return (
       <div>
-        <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn} />
+        <Nav
+          clickProfile={this.clickProfile.bind(this)}
+          user={this.state.user}
+          isLoggedIn={this.state.isLoggedIn}
+        />
         {Page}
       </div>
     );
