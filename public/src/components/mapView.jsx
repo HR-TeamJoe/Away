@@ -1,8 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import keys from '../../../server/config.js';
 
-const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamVubnljY2MiLCJhIjoidFU1UlFIUSJ9.8TdFuiE43mwI0Pz1MnOA2A'
+// const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamVubnljY2MiLCJhIjoidFU1UlFIUSJ9.8TdFuiE43mwI0Pz1MnOA2A'
+// mapboxKey = 'pk.eyJ1IjoiamVubnljY2MiLCJhIjoidFU1UlFIUSJ9.8TdFuiE43mwI0Pz1MnOA2A'
+const url = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=' + keys.mapboxKey;
+
 const center = [40.416775, -3.703790] //harded latlong for Madrid, Spain to maintain worldmap center
 const zoom = 2;
 
