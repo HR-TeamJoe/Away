@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  padding-top: 4%;
+  /*padding-top: 4%;*/
 }
 
 .nav {
@@ -14,10 +14,11 @@ body {
   border-bottom: 1px solid black;
   margin-left: 0;
   margin-right: 0;
-  position: fixed;
+  /*position: fixed;
   top: 0;
   width: 100%;
   background-color: white;
+  z-index: 20;*/
 }
 
 #google-sign-in {
