@@ -12,7 +12,7 @@ class UserSearchHistoryEntry extends React.Component {
     var formattedCities = mappedCities.join(' / ');
 
     return (
-        <Table.Row onClick={(e) => this.props.doHistoricalSearch(e, this.props.searchEntry)}>
+        <Table.Row className="userSearchHistoryEntry-row" onClick={(e) => this.props.doHistoricalSearch(e, this.props.searchEntry)}>
           <Table.Cell className="searchTemp">{this.props.searchEntry.searchTemp}</Table.Cell>
           <Table.Cell className="searchDate">{this.props.searchEntry.searchDate}</Table.Cell>
           <Table.Cell className="formattedCities">{formattedCities}</Table.Cell>

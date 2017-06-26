@@ -22,6 +22,8 @@ body {
 .nav {
   padding: 10px 30px;
   border-bottom: 1px solid black;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #google-sign-in {
@@ -204,14 +206,44 @@ button {
 .searchTemp {
   padding-left: 5%;
   white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 .searchDate {
   padding-left: 5%;
   white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 .formattedCities {
   padding-left: 10%;
   white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.userSearchHistory-background {
+  background-image: url("../../assets/nature6.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.userSearchHistory-container {
+  padding: 75px;
+  background-color: rgba(255,255,255,0.8);
+  font-size: 1em;
+  height: 100vh;
+  color: black;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.userSearchHistoryEntry-row {
+
 }

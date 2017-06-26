@@ -64,23 +64,28 @@ class SearchHistory extends React.Component {
     const { column, data, direction } = this.state
 
     return (
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Search Temperature</Table.HeaderCell>
-            <Table.HeaderCell className="searchDateHeader">Search Date</Table.HeaderCell>
-            <Table.HeaderCell>Recommended Cities</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+      <div className="userSearchHistory-background">
+        <div className='userSearchHistory-container'>
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Search Temperature</Table.HeaderCell>
+                <Table.HeaderCell className="searchDateHeader">Search Date</Table.HeaderCell>
+                <Table.HeaderCell>Recommended Cities</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-        <Table.Body>
-          {
-            this.state.searchHistory.map((searchEntry) =>
-              <UserSearchHistoryEntry doHistoricalSearch={this.props.doHistoricalSearch} searchEntry={searchEntry} />
-            )
-          }
-        </Table.Body>
-      </Table>
+            <Table.Body>
+              {
+                this.state.searchHistory.map((searchEntry) =>
+                  <UserSearchHistoryEntry doHistoricalSearch={this.props.doHistoricalSearch} searchEntry={searchEntry} />
+                )
+              }
+            </Table.Body>
+
+          </Table>
+        </div>
+      </div>
     )
   }
 }

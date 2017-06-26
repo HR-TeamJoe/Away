@@ -46,9 +46,9 @@ class ResultTabs extends React.Component {
                     {destination.restaurants.results.map((location, locIdx) => {
                       return <div className="resultsListItem"><a key={locIdx} href={googleSearch + location.name.replace(regex, '+')}>{location.name}</a></div>;
                     })}
-                  </span> 
-                </div>         
-              </TabPanel> 
+                  </span>
+                </div>
+              </TabPanel>
             )
           })}
         </Tabs>
@@ -62,7 +62,7 @@ export default ResultTabs;
 //{destination.city.summary}
 
 // ====ATTEMPT to link resultTabs with selected city (code should be in TabList map function)====
-// ====ATTEMPT #1==== 
+// ====ATTEMPT #1====
 // return <Tab key={idx} className={this.props.selectedCity===destination.city.city ? 'react-tabs__tab react-tabs__tab--selected' : 'react-tabs__tab'}>{destination.city.city}</Tab>;
 // ====ATTEMPT #2====
 // if(destination.city.city===this.props.selectedCity) {
