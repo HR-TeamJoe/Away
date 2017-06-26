@@ -24,6 +24,7 @@ class Search extends React.Component {
                 <BudgetDropdown options={['thrifty', 'moderate', 'carefree']} changeBudget={this.props.changeBudget} budget={this.props.budget}/>
                 <h3>budget, and I am interested in</h3>
                 <input className="interests" type="text" onChange={(e) => this.props.changeInterests(e)} placeholder="anything" />
+                <h3>.</h3>
               </div>
             </form>
             <SearchButton getCityResults={this.props.getCityResults}/>

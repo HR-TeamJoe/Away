@@ -160,6 +160,17 @@ button, .search-button {
   background-color: #C3734B;
 }
 
+#newSearch {
+  background-color: black;
+  font-size: 10px;
+  padding: 5px 15px;
+}
+
+#newSearch:hover {
+  background-color: #C3734B;
+  transition: 0.25s;
+}
+
 .destinationButton {
 }
 
@@ -170,7 +181,20 @@ button, .search-button {
 .summary {
   text-align: center;
   margin: 1em 0 0.5em 0;
-  font-size: 32px;
+  font-size: 25px;
+  line-height: 150%;
+}
+
+.highlight {
+  /*color: #C3734B;*/
+  /*font-size: 32px;*/
+  text-decoration: underline;
+}
+
+.rec {
+  text-align: center;
+  color: darkslategray;
+  margin-top: 10px;
 }
 
 .book-flight {

@@ -147,7 +147,7 @@ class App extends React.Component {
     } else if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results} changeCity={this.changeCity.bind(this)} selectedCity={this.state.selectedCity}/>;
+      Page = <Results temp={this.state.temp} date={this.state.startDate} budget={this.state.budget} interests={this.state.interests} results={this.state.results} changeCity={this.changeCity.bind(this)} selectedCity={this.state.selectedCity}/>;
     }
 
     return (
