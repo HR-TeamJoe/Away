@@ -219,6 +219,10 @@ button, .search-button {
   color: black;
 }
 
+.resultsListItem a:hover {
+  text-decoration: underline;
+}
+
 .tourism {
   float: left;
 }
