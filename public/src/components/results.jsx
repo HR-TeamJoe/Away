@@ -4,29 +4,34 @@ import DestinationsList from './resultBoxes.jsx';
 import ResultTabs from './resultTabs.jsx';
 import ResultsSummary from './resultsSummary.jsx';
 
-
-
-class Results extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    return (
+const Results = props =>
+  (
     <div className="results-container">
       <div className="results">
-        <ResultsSummary temp={this.props.temp} date={this.props.date} budget={this.props.budget} interests={this.props.interests}/>
-        <DestinationsList destinations={this.props.results} changeCity={this.props.changeCity} selectedCity={this.props.selectedCity}/>
-        <MapView destinations={this.props.results}/>
-        <ResultTabs startDate={this.props.date} destinations={this.props.results} changeCity={this.props.changeCity} selectedCity={this.props.selectedCity}/>
+        <ResultsSummary
+          temp={props.temp}
+          date={props.date}
+          budget={props.budget}
+          interests={props.interests}
+        />
+        <DestinationsList
+          destinations={props.results}
+          changeCity={props.changeCity}
+          selectedCity={props.selectedCity}
+        />
+        <MapView destinations={props.results}/>
+        <ResultTabs
+          startDate={props.date}
+          destinations={props.results}
+          changeCity={props.changeCity}
+          selectedCity={props.selectedCity}
+        />
       </div>
     </div>
-    )
- } 
-}
+  );
 
 export default Results;
 
 // <DestinationsList destinations={testArray}/>
 // <MapView destinations={testArray}/>
-// <ResultTabs destinations={testArray}/>
+// <ResultTabs destinations={testArray} />
