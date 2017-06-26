@@ -24,8 +24,16 @@ class App extends React.Component {
 
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);
+
+    // Would refactor into methods object if time allowed
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.changeBudget = this.changeBudget.bind(this);
+    this.changeInterests = this.changeInterests.bind(this);
+    this.changeCity = this.changeCity.bind(this);
+    this.clickProfile = this.clickProfile.bind(this);
+    this.getCityResults = this.getCityResults.bind(this);
+    this.doHistoricalSearch = this.doHistoricalSearch.bind(this);
   }
 
   componentWillMount() {
@@ -151,23 +159,23 @@ class App extends React.Component {
       Page =
         (<Search
           budget={this.state.budget}
-          changeBudget={this.changeBudget.bind(this)}
-          changeInterests={this.changeInterests.bind(this)}
-          getCityResults={this.getCityResults.bind(this)}
+          changeBudget={this.changeBudget}
+          changeInterests={this.changeInterests}
+          getCityResults={this.getCityResults}
           startDate={this.state.startDate}
           changeDate={this.changeDate}
-          changeTemp={this.changeTemp.bind(this)}
+          changeTemp={this.changeTemp}
           temp={this.state.temp}
         />);
     } else if (this.state.sentSearch) {
-      Page = 
+      Page =
         (<Results
           temp={this.state.temp}
           date={this.state.startDate}
           budget={this.state.budget}
           interests={this.state.interests}
           results={this.state.results}
-          changeCity={this.changeCity.bind(this)}
+          changeCity={this.changeCity}
           selectedCity={this.state.selectedCity}
         />);
     }
@@ -175,7 +183,7 @@ class App extends React.Component {
     return (
       <div>
         <Nav
-          clickProfile={this.clickProfile.bind(this)}
+          clickProfile={this.clickProfile}
           user={this.state.user}
           isLoggedIn={this.state.isLoggedIn}
         />
