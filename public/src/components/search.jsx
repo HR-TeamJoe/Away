@@ -27,7 +27,7 @@ class Search extends React.Component {
                 <h3>.</h3>
               </div>
             </form>
-            <SearchButton getCityResults={this.props.getCityResults}/>          
+            <SearchButton getCityResults={this.props.getCityResults}/>
           </div>
         </div>
       </div>

@@ -11,6 +11,8 @@ body {
 .nav {
   padding: 10px 30px;
   border-bottom: 1px solid black;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #google-sign-in {
@@ -47,7 +49,7 @@ body {
 select {
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
-  width: 230px;
+  /*width: 230px;*/
   padding: 3px 12px;
   /*margin-top:8px;*/
   margin: 10px;
@@ -207,7 +209,7 @@ button, .search-button {
 
 .resultsListSummaryHeader {
   text-decoration: underline black;
-  margin: 0 0 5px 0; 
+  margin: 0 0 5px 0;
 }
 
 .resultsListSummaryBody {
@@ -241,6 +243,10 @@ button, .search-button {
   color: black;
 }
 
+.resultsListItem a:hover {
+  text-decoration: underline;
+}
+
 .tourism {
   float: left;
 }
@@ -269,4 +275,53 @@ button, .search-button {
 
 #google-sign-in, a {
   text-decoration: none;
+}
+
+.searchDateHeader {
+  padding-left: 8%;
+}
+
+.searchTemp {
+  padding-left: 5%;
+  white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.searchDate {
+  padding-left: 5%;
+  white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.formattedCities {
+  padding-left: 10%;
+  white-space: nowrap;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.userSearchHistory-background {
+  background-image: url("../../assets/nature6.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.userSearchHistory-container {
+  padding: 75px;
+  background-color: rgba(255,255,255,0.8);
+  font-size: 1em;
+  height: 100vh;
+  color: black;
+  text-shadow:
+  -1px -1px 0 #fff,
+  1px -1px 0 #fff,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.userSearchHistoryEntry-row {
+
 }

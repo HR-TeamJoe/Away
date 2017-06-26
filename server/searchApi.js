@@ -39,7 +39,7 @@ var sendSearchResponse = (req, res) => {
     .then(getGoogleData)
     .then((allCitiesData) => {
       res.status(200).send(allCitiesData);
-      if ( req.session.passport ) { //If logged in, save search
+      if ( req.session.passport && req.body.shouldSave) { //If logged in, save search
         User.addToHistory(allCitiesData, req.session.passport.user, req.body);
       }
     })
