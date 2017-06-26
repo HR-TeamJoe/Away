@@ -9,7 +9,6 @@ import UserSearchHistory from './userSearchHistory.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       startDate: moment(),
       temp: 'warm',
@@ -112,15 +111,15 @@ class App extends React.Component {
   doHistoricalSearch(e, searchEntry) {
     this.setState({
       startDate: searchEntry.searchDate,
-      temp: searchEntry.searchTemp,
+      temp: searchEntry.searchTemp
     });
 
     console.log(searchEntry);
 
-    var searchInfo = {
+    const searchInfo = {
       startDate: searchEntry.searchDate,
       temp: searchEntry.temp
-    }
+    };
 
     setTimeout(() => (this.getCityResults(e, searchInfo)), 1000);
   }

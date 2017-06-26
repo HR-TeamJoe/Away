@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')();
 const morgan = require('morgan')('combined');
 const apiRouter = require('./server/router/apiRouter.js');
 const authRouter = require('./server/router/authRouter.js');
+const configRouter = require('./server/router/configRouter.js');
 const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+app.use('/config', configRouter);
 
 // INIT
 app.set('port', process.env.PORT || 1337);

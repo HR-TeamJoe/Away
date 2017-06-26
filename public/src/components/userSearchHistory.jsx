@@ -9,7 +9,6 @@ class SearchHistory extends React.Component {
     super(props);
 
     this.state = {
-      userName: '',
       searchHistory: []
     };
 
@@ -23,14 +22,10 @@ class SearchHistory extends React.Component {
   getHistory() {
     axios.get('/api/history')
     .then((response) => {
-      const displayName = 'response.user_id';
       const previousSearches = response.data;
-
-      // console.log('previousSearches:', previousSearches);
       console.log('response:', response);
       console.log('Setting searchHistory to: ', previousSearches);
       this.setState({
-        userName: displayName,
         searchHistory: previousSearches
       });
     });
@@ -39,7 +34,7 @@ class SearchHistory extends React.Component {
   render() {
     return (
       <div className="userSearchHistory-background">
-        <div className='userSearchHistory-container'>
+        <div className="userSearchHistory-container">
           <Table celled>
             <Table.Header>
               <Table.Row>
