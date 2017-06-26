@@ -135,7 +135,7 @@ button {
 
 .resultsListSummaryHeader {
   text-decoration: underline black;
-  margin: 0 0 5px 0; 
+  margin: 0 0 5px 0;
 }
 
 .resultsListHeader {
@@ -197,3 +197,21 @@ button {
   text-decoration: none;
 }
 
+.searchDateHeader {
+  padding-left: 8%;
+}
+
+.searchTemp {
+  padding-left: 5%;
+  white-space: nowrap;
+}
+
+.searchDate {
+  padding-left: 5%;
+  white-space: nowrap;
+}
+
+.formattedCities {
+  padding-left: 10%;
+  white-space: nowrap;
+}

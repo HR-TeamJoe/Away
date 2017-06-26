@@ -154,7 +154,6 @@ class App extends React.Component {
         <Nav clickProfile={this.clickProfile.bind(this)} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
         <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
-        <a href="/api/history">History Page</a>
       </div>
     )
   }
