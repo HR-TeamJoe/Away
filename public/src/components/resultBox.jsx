@@ -6,10 +6,11 @@ class DestinationBox extends React.Component {
     super(props);
 
     this.state = {
-      visits: this.props.destination.city.visits
+      visits: this.props.destination.city.visits,
     };
 
     this.incrementVisits = this.incrementVisits.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
@@ -26,10 +27,16 @@ class DestinationBox extends React.Component {
     });
   }
 
+  handleClick(e) {
+    console.log('resultBox e: ', e);
+    this.incrementVisits();
+    this.props.changeCity(e)
+  }
+
   render() {
     return (
       <div>
-        <button className="destinationButton" onClick={() => this.incrementVisits()}>{this.props.destination.city.city}</button>
+        <button value={this.props.destination.city.city} className={this.props.selectedCity===this.props.destination.city.city ? 'button-clicked' : null} onClick={this.handleClick}>{this.props.destination.city.city}</button>
       </div>
     )
   }

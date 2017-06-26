@@ -22,13 +22,15 @@ class App extends React.Component {
       user: {},
       interests: '',
       budget: 'college student',
-      sentSearch: false
+      sentSearch: false,
+      selectedCity: ''
     }
 
     console.log(moment());
     console.log('startDate is: ', this.state.startDate);
     this.changeTemp = this.changeTemp.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    // this.changeCity = this.changeCity.bind(this);
   }
 
   componentWillMount() {
@@ -69,6 +71,7 @@ class App extends React.Component {
   }
 
   changeDate(date) {
+    console.log('new date: ',date);
     this.setState({
       startDate: date
     });
@@ -80,8 +83,16 @@ class App extends React.Component {
       interests: e.target.value
     });
   }
+  
+  changeCity(city) {
+    console.log('new city is: ', city.target.value)
+    this.setState({
+      selectedCity: city.target.value
+    })
+  }
 
   getCityResults(e) {
+    console.log('Searching...');
     e.preventDefault();
     console.log(this.state.interests);
     axios.post('/api/search', {
@@ -115,15 +126,13 @@ class App extends React.Component {
     if ( !this.state.sentSearch ) {
       Page = <Search budget={this.state.budget} changeBudget={this.changeBudget.bind(this)} changeInterests={this.changeInterests.bind(this)} getCityResults={this.getCityResults.bind(this)} startDate={this.state.startDate} changeDate={this.changeDate} changeTemp={this.changeTemp.bind(this)} temp={this.state.temp}/>;
     } else if ( this.state.sentSearch ) {
-      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results}/>;
+      Page = <Results temp={this.state.temp} date={this.state.startDate} results={this.state.results} changeCity={this.changeCity.bind(this)} selectedCity={this.state.selectedCity}/>;
     }
 
     return (
       <div>
         <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
         {Page}
-        <button onClick={this.showResultsPage.bind(this)}>DEBUG: Toggle Results Page</button>
-        <a href="/api/history">History Page</a>
       </div>
     )
   }
