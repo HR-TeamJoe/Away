@@ -282,7 +282,7 @@ button, .search-button {
 }
 
 .searchTemp {
-  padding-left: 5%;
+  padding-left: 3%;
   white-space: nowrap;
   padding-top: 1%;
   padding-bottom: 1%;
@@ -306,7 +306,8 @@ button, .search-button {
   background-image: url("../../assets/nature6.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 100%;
+  background-attachment: scroll;
 }
 
 .userSearchHistory-container {
