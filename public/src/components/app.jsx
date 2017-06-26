@@ -92,7 +92,6 @@ class App extends React.Component {
     })
   }
 
-<<<<<<< HEAD
   doHistoricalSearch(e, searchEntry) {
     this.setState({
       startDate: searchEntry.searchDate,
@@ -103,10 +102,6 @@ class App extends React.Component {
   }
 
   getCityResults(e, shouldSave) {
-=======
-  getCityResults(e) {
-    console.log('Searching...');
->>>>>>> 96c65dd270281a7a19bb9509d7a2e5a96a254676
     e.preventDefault();
     console.log(this.state.interests);
     axios.post('/api/search', {
