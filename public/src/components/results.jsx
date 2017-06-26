@@ -3,14 +3,23 @@ import MapView from './mapView.jsx';
 import DestinationsList from './resultBoxes.jsx';
 import ResultTabs from './resultTabs.jsx';
 import ResultsSummary from './resultsSummary.jsx';
+import moment from 'moment';
 
-const Results = props =>
-  (
+const Results = (props) => {
+  let dateForFlight;
+
+  if (typeof props.date === 'function') {
+    dateForFlight = props.date;
+  } else {
+    dateForFlight = moment(props.date);
+  }
+
+  return (
     <div className="results-container">
       <div className="results">
         <ResultsSummary
           temp={props.temp}
-          date={props.date}
+          date={dateForFlight}
           budget={props.budget}
           interests={props.interests}
         />
@@ -29,9 +38,6 @@ const Results = props =>
       </div>
     </div>
   );
+};
 
 export default Results;
-
-// <DestinationsList destinations={testArray}/>
-// <MapView destinations={testArray}/>
-// <ResultTabs destinations={testArray} />

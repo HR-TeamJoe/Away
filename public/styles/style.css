@@ -6,6 +6,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  /*padding-top: 4%;*/
 }
 
 .nav {
@@ -13,6 +14,11 @@ body {
   border-bottom: 1px solid black;
   margin-left: 0;
   margin-right: 0;
+  /*position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 20;*/
 }
 
 #google-sign-in {
@@ -282,7 +288,7 @@ button, .search-button {
 }
 
 .searchTemp {
-  padding-left: 5%;
+  padding-left: 3%;
   white-space: nowrap;
   padding-top: 1%;
   padding-bottom: 1%;
@@ -306,22 +312,19 @@ button, .search-button {
   background-image: url("../../assets/nature6.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  background-attachment: fixed;
+  height: 100%;
 }
 
 .userSearchHistory-container {
   padding: 75px;
   background-color: rgba(255,255,255,0.8);
   font-size: 1em;
-  height: 100vh;
+  height: 100%;
   color: black;
   text-shadow:
   -1px -1px 0 #fff,
   1px -1px 0 #fff,
   -1px 1px 0 #fff,
   1px 1px 0 #fff;
-}
-
-.userSearchHistoryEntry-row {
-
 }

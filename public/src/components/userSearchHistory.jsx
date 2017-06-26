@@ -38,8 +38,8 @@ class SearchHistory extends React.Component {
           <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Search Temperature</Table.HeaderCell>
-                <Table.HeaderCell className="searchDateHeader">Search Date</Table.HeaderCell>
+                <Table.HeaderCell>Temperature</Table.HeaderCell>
+                <Table.HeaderCell className="searchDateHeader">Date</Table.HeaderCell>
                 <Table.HeaderCell>Recommended Cities</Table.HeaderCell>
               </Table.Row>
             </Table.Header>

@@ -10,6 +10,7 @@ const Nav = (props) => {
         <img
           alt={props.user.displayName}
           className="profileImg"
+          alt="Click to see search history."
           src={props.user.photo}
         />
         <span className="userName">
